@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(mieszkania|lokale|domy|dzialki|login|dodaj)(.*)$ /index.html [L]
+#RewriteRule ^(.*)$ /index.html [L]
