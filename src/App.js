@@ -22,7 +22,7 @@ function App() {
     <Router>
       <div>
         {/* Navigation links */}
-        <nav className='navbar navbar-expand-md navbar-dark' style={{'background': '#464B53'}}>
+        <nav className='navbar navbar-expand-md navbar-dark' style={{ 'background': '#464B53' }}>
           <div className='container'>
             <Link to="/" className='navbar-brand'>Logo</Link>
             <button
@@ -38,10 +38,11 @@ function App() {
             </button>
             <div className="collapse navbar-collapse text-center " id="navbarNav">
               <ul className="navbar-nav ms-auto ">
-                <li className="nav-item" active><Link to="/mieszkania" className="nav-link text-light">Mieszkania</Link></li> {/* Link to the Offers page */}
+                <li className="nav-item"><Link to="/mieszkania" className="nav-link text-light">Mieszkania</Link></li> {/* Link to the Offers page */}
                 <li className="nav-item"><Link to="/domy" className="nav-link text-light">Domy</Link></li>
                 <li className="nav-item"><Link to="/dzialki" className="nav-link text-light">Działki</Link></li>
-                <li className="nav-item"><Link to="/lokale" className="nav-link text-light">Lokale</Link></li>
+                <li className="nav-item"><Link to="/lokale" className="dropdown-item nav-link text-light">Lokale</Link></li>{/* dodaj podmenu sprzedarz wynaem */}
+                <li className="nav-item"><Link to="/mieszkania/" className="nav-link text-light">Wynajem Mieszkań</Link></li>
                 {localStorage.getItem('token') !== null && <li className="nav-item"><Link to="/dodaj" className="nav-link text-light">➕ Dodaj oferte</Link></li>}
                 {localStorage.getItem('token') !== null && <li className="nav-item"><Link to="/login" className="nav-link text-light">🔑 Logowanie</Link></li>}
               </ul>

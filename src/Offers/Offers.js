@@ -49,6 +49,9 @@ function Offers() {
                     else
                         element.thumbnail = element.photos.split(',')[0];
                 });
+                json.forEach(element => {
+                    element.parameters = JSON.parse(element.parameters == null ? '[]' : element.parameters )
+                })
                 if (page === 0)
                     setData(json);
                 else
@@ -84,14 +87,19 @@ function Offers() {
                             <Link key={item.id} to={`/${category}/` + item.id} className="text-decoration-none d-sm-none d-md-block">
                                 <div className="list-item text-dark d-flex mb-4 border-secondary overflow-hidden bg-white ">
                                     <img src={`${baseApiUrl}/${item.thumbnail}`}
-                                        loading='lazy' width={250}
-                                        height={200}
-                                        className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '25/20' }} alt="Item" />
+                                        loading='lazy' width={300}
+                                        height={250}
+                                        className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
                                     <div className="list-item-data p-3 ">
                                         <h5>{item.title}</h5>
                                         <p>
-                                            <b>{item.price} {item.price_unit}</b>   {Math.floor(item.price/item.size)} {item.price_unit}/{item.size_unit}    {item.size}{item.size_unit}<br />
-                                            {item.description.slice(0, 200)}{item.description.length > 200 && '...'}<br />
+                                            {item.location_text}<br />
+                                            Cena: <b>{item.price} {item.price_unit}</b><br/>
+                                            Cena za {item.size_unit}: {Math.floor(item.price/item.size)} {item.price_unit}/{item.size_unit}<br />
+                                            Powierzchnia: {item.size}{item.size_unit}<br/>
+                                            {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br/></>}
+                                            {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br/></>}
+                                            {item.description.slice(0, 150)}{item.description.length > 150 && '...'}<br />
                                         </p>
                                     </div>
                                 </div>

@@ -66,6 +66,14 @@ function Offer() {
         fetchData();
     }, [id]);
 
+
+    /**
+     * zdjęcie 1
+     * zdjęcia reszta małę
+     * kolumna lewa tytuł i lokalizacja
+     * kolumna prawa cena i cena za rozmiar
+     * 
+     */
     return (
         <div>
             <div>Offer from category: {category} and with id : {id}</div>
