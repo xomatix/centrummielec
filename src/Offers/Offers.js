@@ -82,11 +82,11 @@ function Offers() {
                     <ul>
                         {data.map((item) => (
                             <Link key={item.id} to={`/${category}/` + item.id} className="text-decoration-none d-sm-none d-md-block">
-                                <div className="list-item text-dark d-flex mb-4 border-secondary rounded overflow-hidden bg-white ">
+                                <div className="list-item text-dark d-flex mb-4 border-secondary overflow-hidden bg-white ">
                                     <img src={`${baseApiUrl}/${item.thumbnail}`}
                                         loading='lazy' width={250}
                                         height={200}
-                                        className={"rounded-left "} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '25/20' }} alt="Item" />
+                                        className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '25/20' }} alt="Item" />
                                     <div className="list-item-data p-3 ">
                                         <h5>{item.title}</h5>
                                         <p>

@@ -284,7 +284,7 @@ function EditOffer() {
       setIsUploaded(false);
     }
 
-    if (id !== undefined || category !== undefined) {
+    if (id !== undefined && category !== undefined) {
       window.location = `/${category}/${id}`;
       return;
     }
