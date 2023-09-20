@@ -6,6 +6,7 @@ function Home() {
     <div>
       <h1>Welcome to the Home Page</h1>
       <p>Explore our <Link to="/mieszkania">mieszkania</Link>.</p> {/* Link to the Offers page */}
+      <p>Explore our <Link to="/domy">domy</Link>.</p> {/* Link to the Offers page */}
     </div>
   );
 }
