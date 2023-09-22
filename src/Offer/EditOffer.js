@@ -663,10 +663,10 @@ function EditOffer() {
 
         {/* lokalizacja*/}
         <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="location" className={bootstrapStyle.label}>Współrzędne:</label>
+          <label htmlFor="location" className={bootstrapStyle.label}>Mapa iframe:</label>
           <input
             className={bootstrapStyle.input}
-            placeholder="xx.xxxxxx, xx,xxxxxxxx"
+            placeholder="iframe"
             type="text"
             id="location"
             name="location"

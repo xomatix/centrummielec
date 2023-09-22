@@ -1,35 +1,7 @@
 
 
-zrób edit z tego samego pliku pobierz z id
-pobierz z id i podstaw dane loopem
+front z wybraniem kategorii
 
-pobierz zdjęcia
+zrealizowane oferty
 
-
-
-https://centrummielec.pl/nowa/api/posts
-
-post request
-
-header : 
-Autorization bearer token
-
-{
-    "title": "lokal użytkowy po kebabie 36m2",
-    "description": "prawie nowy lokal jeszcze pachnie arabem ",
-    "category": 3,
-    "price": 360000,
-    "price_unit": "zł",
-    "size": 36,
-    "size_unit": "m²",
-    "location": "52.4092939,17.0691915",
-    "location_text": "Mielec ul. Brata 34",
-    "status": 0,
-    "is_recommended": 0,
-    "date_of_creation": "2023-09-15",
-    "parameters": {
-        "Piętro": "2/3",
-        "Media": "Woda , Gaz, Prąd",
-        "Stan wykończenia": "do wykończenia"
-    }
-}
+i kontakt/ o nas

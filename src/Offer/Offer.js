@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { baseApiUrl } from '../Variables';
+import SlideShow from './SlideShow'
 
 async function deletePost(e, id, category) {
     e.preventDefault();
-    if(window.confirm('Czy na pewno chcesz usunąć ten post?')){
+    if (window.confirm('Czy na pewno chcesz usunąć ten post?')) {
         try {
             const apiUrl = `${baseApiUrl}/posts/${id}`;
             const response = await fetch(apiUrl, {
@@ -53,7 +54,7 @@ function Offer() {
                     json.firstPhoto = json.photos.split(',')[0];
 
                 json.parameters = json.parameters !== "" ? JSON.parse(json.parameters) : "";
-
+                
                 setData(json);
                 setLoading(false);
             } catch (error) {
@@ -67,6 +68,22 @@ function Offer() {
     }, [id]);
 
 
+    function resizeMap(mapString) {
+        const htmlElementString = mapString;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlElementString, 'text/html');
+        const element = doc.body.firstChild;
+
+        if(element === undefined || element === null)
+            return '<div></div>';
+        else{
+            element.style.width = '100%';
+            element.style.height = '400px';
+            
+            return element.outerHTML;
+        }
+    }
+
     /**
      * zdjęcie 1
      * zdjęcia reszta małę
@@ -75,26 +92,32 @@ function Offer() {
      * 
      */
     return (
-        <div>
-            <div>Offer from category: {category} and with id : {id}</div>
+        <div className='container mt-4'>
             {loading ? <h1>Loading...</h1> :
-                <>
-                    <div>
-                        <img loading="lazy" src={baseApiUrl + '/' + data.firstPhoto} alt={data.title} width="300px" height="300px"></img>
-                        <h3>Title: {data.title}</h3>
-                        <p>Price: {data.price} {data.price_unit}</p>
-                        <p>Size: </p>
+                <div className='row'>
+                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status===1 ? '': 'd-none'}`} width = '100%' >REZERWACJA</div>
+                    <div className='col-md-12'>
+                        <SlideShow photosUrls={data.photos.split(',')}/>
                     </div>
-                    <div>
-                        <p>Description: {data.description}</p>
-                        <p>Location: {data.location_text}</p>
-                        <p>Map: {data.location}</p>
-                        <div className="container mt-4">
-                            <table className="table">
+                    <div className='mt-2'>
+                        <div className='row'>
+                            <div className='col-md-9'>
+                                <h3 >{data.title}</h3>
+                                <a href='#map' className='text-success'>{data.location_text}</a>
+                            </div>
+                            <div className='col-md-3 '>
+                                <h3 className=''><b>{data.price}</b> {data.price_unit}</h3>
+                                {data.offer_type === 0 && <p className=''><b>{Math.floor(data.price / data.size)}</b> {data.price_unit}/{data.size_unit}</p>}
+                            </div>
+                        </div>
+                        <div className="container mt-4 mb-5">
+                            <table className="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Szczegóły ogłoszenia</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <th>
-                                        <td>Szczegóły ogłoszenia</td>
-                                    </th>
                                     <tr>
                                         <td>Powierzchnia</td>
                                         <td>{data.size} {data.size_unit}</td>
@@ -108,16 +131,21 @@ function Offer() {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="text-center">
+                        <h4>Opis:</h4>
+                        <p className='mb-4'>{data.description}</p>
+                        <div id='map' className='mb-4' dangerouslySetInnerHTML={{ __html: resizeMap(data.location)}}></div>
+
+                        {/** dla zalogowanych */}
+                        <div className="text-center">
                             {localStorage.getItem('token') !== null &&
-                            <Link to={`/${category}/${id}/edytuj`} className='m-2'>
-                            <button className="btn btn-info text-center" type='button'>Edytuj oferte ✏</button>
-                            </Link>}
+                                <Link to={`/${category}/${id}/edytuj`} className='m-2'>
+                                    <button className="btn btn-info text-center" type='button'>Edytuj oferte ✏</button>
+                                </Link>}
                             {localStorage.getItem('token') !== null &&
-                            <button className="btn btn-danger text-center" type='button' onClick={(e) => deletePost(e, id, category)}>Usuń oferte 🗑</button>}
+                                <button className="btn btn-danger text-center" type='button' onClick={(e) => deletePost(e, id, category)}>Usuń oferte 🗑</button>}
                         </div>
                     </div>
-                </>
+                </div>
             }
         </div>
     )
