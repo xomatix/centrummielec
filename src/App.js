@@ -9,6 +9,8 @@ import EditOffer from './Offer/EditOffer';
 import { RefreshToken } from './Login/Login';
 import { useEffect } from 'react';
 import { baseApiUrl } from './Variables';
+import Footer from './Footer/Footer';
+import Contact from './Contact/Contact';
 
 function App() {
   useEffect(() => {
@@ -25,7 +27,7 @@ function App() {
         {/* Navigation links */}
         <nav className='navbar navbar-expand-lg navbar-dark' style={{ 'background': '#464B53' }}>
           <div className='container'>
-            <Link to="/" className='navbar-brand'><img src={`${baseApiUrl}/static/logo-b.png`} width="120" height="100%" class="d-inline-block align-top" alt="Centrum Nieruchomości Mielec Logo"/></Link>
+            <Link to="/" className='navbar-brand'><img src={`${baseApiUrl}/static/logo-b.png`} width="120" height="100%" className="d-inline-block align-top" alt="Centrum Nieruchomości Mielec Logo"/></Link>
             <button
               className="navbar-toggler border-none"
               type="button"
@@ -58,6 +60,7 @@ function App() {
                   </ul>
                 </li>
                 <li className="nav-item"><Link to="/mieszkania/wynajem" className="nav-link text-light">Wynajem Mieszkań</Link></li>
+                <li className="nav-item"><Link  to="/kontakt" className="nav-link text-light">Kontakt</Link></li>
                 {localStorage.getItem('token') !== null && <li className="nav-item"><Link to="/dodaj" className="nav-link text-light">➕ Dodaj oferte</Link></li>}
                 {localStorage.getItem('token') !== null && <li className="nav-item"><Link to="/login" className="nav-link text-light">🔑 Logowanie</Link></li>}
               </ul>
@@ -69,6 +72,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home />} /> {/* Home page */}
           <Route path="/login/" element={<Login />} /> {/* Offers page */}
+          <Route path="/kontakt" element={<Contact />} /> {/* Offers page */}
           {localStorage.getItem('token') !== null && <Route path="/dodaj/" element={<EditOffer />} />}
           <Route path="/:category/wynajem" element={<Offers rent={true} />} />
           <Route path="/:category/mielec" element={<Offers mielec={true} />} />
@@ -80,7 +84,7 @@ function App() {
       </div>
 
       {/* footer */}
-      <footer>Footer</footer>
+      <Footer />
     </Router >
   );
 }

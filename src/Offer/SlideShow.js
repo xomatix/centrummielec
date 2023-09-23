@@ -8,20 +8,38 @@ function SlideShow({ photosUrls }) {
 
     useEffect(() => {
         setPhotos([...photosUrls])
-    }, [photosUrls])
 
-    const handlePhotoClick = (e, index) => {
-        e.preventDefault()
-        setMainPhoto(index);
-    }
+        // window.addEventListener('keyup', (e) => {
+        //     e.preventDefault()
+        //     switch (e.key) {
+        //         case 'ArrowRight':
+        //             handleButtonClick(e, 1)
+        //             break;
+        //         case 'ArrowLeft':
+        //             handleButtonClick(e, -1)
+        //             break;
+
+        //         default:
+        //             break;
+        //     }
+        // })
+
+    }, [photosUrls])
 
     const handleButtonClick = (e, step) => {
         e.preventDefault()
         if (step === 1) {
             setMainPhoto((mainPhoto + 1) % photos.length)
+            console.log(mainPhoto)
         } else {
             setMainPhoto(mainPhoto === 0 ? photos.length - 1 : mainPhoto - 1)
+            console.log(mainPhoto)
         }
+    }
+
+    const handlePhotoClick = (e, index) => {
+        e.preventDefault()
+        setMainPhoto(index);
     }
 
     const closeMainPhoto = (e) => {
@@ -30,8 +48,8 @@ function SlideShow({ photosUrls }) {
     }
 
     return (
-        <div className="">
-            <div style={{ position: 'relative' }}>
+        <div className="overflow-hidden">
+            <div style={{ position: 'relative' , zIndex: 1}}>
                 {photos.map((item, index) =>
                     <div key={index + 100} className={` ${mainPhoto === index ? 'd-block' : 'd-none'}`} >
                         <div className={`bg-dark ${mainPhotoOpen === true ? 'd-block' : 'd-none'}`}
@@ -51,7 +69,7 @@ function SlideShow({ photosUrls }) {
                         </div>
 
                         <div className={` ${mainPhotoOpen === true ? 'd-none' : 'd-block'}`} >
-                            <div onClick={e => { e.preventDefault(); setMainPhotoOpen(true); }}>
+                            <div onClick={e => { e.preventDefault(); setMainPhotoOpen(true);}}>
                                 <img loading='lazy' src={`${baseApiUrl}/${item}`} height={'600px'} className='d-none d-md-block' style={{ width: '100%', objectFit: 'cover' }} alt={`Zdjęcie numer ${index}`} />
                                 <img loading='lazy' src={`${baseApiUrl}/${item}`} height={'300px'} className='d-block d-md-none ' style={{ width: '100%', objectFit: 'cover' }} alt={`Zdjęcie numer ${index}`} />
                             </div>

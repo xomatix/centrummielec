@@ -186,7 +186,7 @@ function EditOffer() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let categoryNum = -1;
+    let categoryNum = 99;
     switch (data.category.toLowerCase()) {
       case 'mieszkania':
         categoryNum = 0;
@@ -227,7 +227,7 @@ function EditOffer() {
         status = 1;
         break;
       case 'sprzedane':
-        status = 1;
+        status = 2;
         break;
 
       default:

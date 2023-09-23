@@ -35,8 +35,10 @@ function Offers({ rent, mielec }) {
             let rentQuery = rent !== undefined && rent ? '&offer_type=1' : '&offer_type=0'
             if (categoryId === 1 || categoryId === 2)
                 rentQuery = ''
+            let categoryQuery = categoryId !== -1 ? `category=${categoryId}&` : ''
+            let statusQuery = category === 'zrealizowane' ? '&status=2' : ''
             try {
-                const apiUrl = `${baseApiUrl}/posts?category=${categoryId}&page=${page}${rentQuery}`;
+                const apiUrl = `${baseApiUrl}/posts?${categoryQuery}page=${page}${rentQuery}${statusQuery}`;
                 const response = await fetch(apiUrl)
 
                 if (!response.ok) {
@@ -91,7 +93,7 @@ function Offers({ rent, mielec }) {
                 <p>Loading...</p>
             ) : (
                 <div className="container">
-                    <h2 className="ms-4">{category.charAt(0).toUpperCase()}{category.slice(1)} na {(rent !== undefined && rent === true) ? 'wynajem' : 'sprzedaż'}</h2>
+                    <h2 className="ms-4 mb-4">{category.charAt(0).toUpperCase()}{category.slice(1)} na {category === 'zrealizowane' ? 'oferty' : (rent !== undefined && rent === true) ? 'wynajem' : 'sprzedaż'}</h2>
                     <ul>
                         {data.map((item, index) => (
                             <div key={index + 999}>
@@ -123,7 +125,7 @@ function Offers({ rent, mielec }) {
                                             height={410}
                                             className={"coloumn d-none d-sm-block p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
-                                            loading='lazy' width='100%'
+                                            loading='' width='100%'
                                             height={200}
                                             className={"coloumn d-xs-block d-sm-none p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
                                         <div className="column list-item-data p-3 ">
@@ -173,7 +175,7 @@ function Offers({ rent, mielec }) {
                                         height={410}
                                         className={"coloumn d-none d-sm-block p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
                                     <img src={`${baseApiUrl}/${item.thumbnail}`}
-                                        loading='lazy' width='100%'
+                                        loading='' width='100%'
                                         height={200}
                                         className={"coloumn d-xs-block d-sm-none p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
                                     <div className="column list-item-data p-3 ">
