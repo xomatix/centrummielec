@@ -42,8 +42,8 @@ function CatSelect() {
 
     return (
         <div>
-            <div className='main' height={500} style={{ position: 'relative' }}>
-                <img src='https://centrummielec.pl/api/static/back_front.jpg' width={'100%'} height={500}
+            <div className='main' height={400} style={{ position: 'relative' }}>
+                <img src='https://centrummielec.pl/api/static/back_front.jpg' width={'100%'} height={400}
                     style={{ objectFit: 'cover', top: 0, left: 0 }} alt='tło' />
                 <div style={{
                     height: '100%', width: '100%', position: 'absolute',
@@ -52,13 +52,13 @@ function CatSelect() {
                 <div className='row d-flex flex-column text-center mx-auto' 
                 style={{minWidth:300, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
                     <div className='mb-5 text-light'>
-                        <h2>Hasło tytułowe</h2>
+                        <h2>Spełniamy marzenia</h2>
 
                     </div>
                     <div className=' p-4 d-flex justify-content-around' style={{background: '#F2F3F4'}}>
-                        <div class="form-group me-3">
+                        <div className="form-group me-3">
                             {/* <label for="formControlSelect">Czego szukasz?</label> */}
-                            <select class="form-control" id="formControlSelect" value={selectedCategory} onChange={e => handleValueChange(e)} placeholder="">
+                            <select className="form-control" id="formControlSelect" value={selectedCategory} onChange={e => handleValueChange(e)} placeholder="">
                                 <option>Mieszkania</option>
                                 <option>Mieszkania na wynajem</option>
                                 <option>Domy</option>

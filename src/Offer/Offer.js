@@ -26,6 +26,7 @@ async function deletePost(e, id, category) {
 
 function Offer() {
     let { category, id } = useParams();
+    id = id.split('-')[0]
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);

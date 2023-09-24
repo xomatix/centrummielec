@@ -101,6 +101,56 @@ async function fetchDataFromApi(id) {
   }
 }
 
+
+//from there
+async function addWatermark(file, watermarkText) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = async function (event) {
+      const image = new Image();
+      image.src = event.target.result;
+
+      image.onload = async function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = image.width;
+        canvas.height = image.height;
+
+        ctx.drawImage(image, 0, 0);
+
+        ctx.font = '24px Arial';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+        ctx.fillText(watermarkText, 20, image.height - 20);
+
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        }, 'image/jpeg');
+      };
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+async function addWatermarkToImage(photo, watermarkText) {
+
+  const file = photo;
+
+  const watermarkedBlob = await addWatermark(file, watermarkText);
+  // Do something with the watermarkedBlob, such as displaying it or downloading it
+  // const watermarkedDataURL = URL.createObjectURL(watermarkedBlob);
+  // document.appendChild(watermarkedDataURL);
+  // const downloadLink = document.createElement('a');
+  // downloadLink.href = watermarkedDataURL;
+  // downloadLink.download = 'watermarked_image.jpg';
+  // downloadLink.click();
+  return await new File([watermarkedBlob], photo.name);
+}
+
+//to there
+
 function EditOffer() {
   let { id, category } = useParams();
 
@@ -164,7 +214,7 @@ function EditOffer() {
   };
 
   const addParameterField = (key, e) => {
-    if(key === undefined || key === "" || key === null) return;
+    if (key === undefined || key === "" || key === null) return;
     setParametersList({
       ...parametersList,
       [key]: '',
@@ -350,16 +400,18 @@ function EditOffer() {
   const [photos, setPhotos] = useState([]);
   const [isPhotoTooBig, setIsPhotoTooBig] = useState(false);
 
-  const handlePhotoUpload = (e) => {
+  const handlePhotoUpload = async (e) => {
     if (e.target.files.length === 0) {
       return;
     }
-    const newPhotos = [...photos];
     if (e.target.files[0].size > 500000) {
       setIsPhotoTooBig(true);
       return;
     }
-    newPhotos.push(e.target.files[0]);
+    const newPhotos = [...photos];
+    const photoWithWatermark = await addWatermarkToImage(e.target.files[0], "Centrum Nieruchomości Mielec")
+    //const photoWithWatermark = e.target.files[0]
+    newPhotos.push(photoWithWatermark);
     setPhotos(newPhotos);
     setIsPhotoTooBig(false);
   };
@@ -414,7 +466,7 @@ function EditOffer() {
       </div>
     </div>);
 
-  const handleEditPhotoUpload = (e) => {
+  const handleEditPhotoUpload = async (e) => {
     if (e.target.files.length === 0) {
       return;
     }
@@ -424,21 +476,23 @@ function EditOffer() {
     }
     if (id !== undefined) {
       const resp = async () => {
-        const resp = await uploadPhoto(e.target.files[0], id)
-        .then((response) => {
-          try{
-            let oldLinks = data.photos === "" ? data.photos : data.photos + ',';
-            let updatedPhotos = oldLinks + response.photo.split(',')[response.photo.split(',').length-1];
-            setData({
-              ...data,
-              photos: updatedPhotos,
-            })
-            //console.log(data.photos);
-          } catch (error){
-            setIsPhotoTooBig(true)
-            console.error("photo not added")
-          }
-        })
+        const photoWithWatermark = await addWatermarkToImage(e.target.files[0], "Centrum Nieruchomości Mielec")
+        // const photoWithWatermark = e.target.files[0]
+        uploadPhoto(photoWithWatermark, id)
+          .then((response) => {
+            try {
+              let oldLinks = data.photos === "" ? data.photos : data.photos + ',';
+              let updatedPhotos = oldLinks + response.photo.split(',')[response.photo.split(',').length - 1];
+              setData({
+                ...data,
+                photos: updatedPhotos,
+              })
+              //console.log(data.photos);
+            } catch (error) {
+              setIsPhotoTooBig(true)
+              console.error("photo not added")
+            }
+          })
       }
       resp()
     }
@@ -447,18 +501,18 @@ function EditOffer() {
   const handleEditDeletePhoto = (index) => {
     let updatedPhotos = data.photos.split(',')
     const urlPhotoToDelete = updatedPhotos.splice(index, 1)
-    setData({...data, photos: updatedPhotos.join(',')})
+    setData({ ...data, photos: updatedPhotos.join(',') })
     deletePhoto(urlPhotoToDelete, id);
-    
+
     // console.log(updatedPhotos.join(','));
   }
 
   const handleEditDoubleclick = (index) => {
     const newFirstPhotoUrl = data.photos.split(',')[index]
     let updatedPhotosLinks = data.photos.split(',')
-    updatedPhotosLinks.splice(index,1)
+    updatedPhotosLinks.splice(index, 1)
     updatedPhotosLinks.unshift(newFirstPhotoUrl)
-    setData({...data, photos: updatedPhotosLinks.join(',')})
+    setData({ ...data, photos: updatedPhotosLinks.join(',') })
   }
 
   const photosEditComponent = (

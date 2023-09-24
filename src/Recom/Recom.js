@@ -51,9 +51,9 @@ function Recom() {
 
             <div className='d-flex justify-content-center mb-3'>
                 {data.map((item, index) =>
-                    <Link to={`/${item.category}/${item.id}`}>
+                    <Link key={index} to={`/${item.category}/${item.id}-${item.title.split(' ').join('-')}`}>
                         <div style={{ position: 'relative' }}
-                            className={`d-flex-col mx-2 ${index < 3 ? 'd-none d-lg-block' : 'd-none'}`} key={index}>
+                            className={`d-flex-col mx-2 ${index < 3 ? 'd-none d-lg-block' : 'd-none'}`}>
                             <img src={item.firstPhoto} alt={"Zdjęcie polecanej oferty " + index} width={300} height={300} style={{ objectFit: 'cover' }}></img>
                             <div className=""
                                 style={{
@@ -67,7 +67,7 @@ function Recom() {
                         </div>
 
                         <div style={{ position: 'relative' }}
-                            className={`d-flex-col mx-2 ${index < 2 ? 'd-lg-none d-sm-block d-none' : 'd-none'}`} key={index}>
+                            className={`d-flex-col mx-2 ${index < 2 ? 'd-lg-none d-sm-block d-none' : 'd-none'}`} >
                             <img src={item.firstPhoto} alt={"Zdjęcie polecanej oferty " + index} width={300} height={300} style={{ objectFit: 'cover' }}></img>
                             <div className=""
                                 style={{
@@ -81,7 +81,7 @@ function Recom() {
                         </div>
 
                         <div style={{ position: 'relative' }}
-                            className={`d-flex-col mx-2 ${index < 1 ? 'd-sm-none d-xs-block' : 'd-none'}`} key={index}>
+                            className={`d-flex-col mx-2 ${index < 1 ? 'd-sm-none d-xs-block' : 'd-none'}`} >
                             <img src={item.firstPhoto} alt={"Zdjęcie polecanej oferty " + index} width={300} height={300} style={{ objectFit: 'cover' }}></img>
                             <div className=""
                                 style={{
@@ -98,9 +98,9 @@ function Recom() {
             </div>
             <div className='d-flex justify-content-center'>
                 {data.map((item, index) =>
-                    <Link to={`/${item.category}/${item.id}`}>
+                    <Link to={`/${item.category}/${item.id}-${item.title.split(' ').join('-')}`}>
                         <div style={{ position: 'relative' }}
-                            className={`d-flex-col mx-2 ${index >= 3 ? 'd-none d-lg-block' : 'd-none'}`} key={index}>
+                            className={`d-flex-col mx-2 ${index >= 3 ? 'd-none d-lg-block' : 'd-none'}`} key={(index+1)*33}>
                             <img src={item.firstPhoto} alt={"Zdjęcie polecanej oferty " + index} width={300} height={300} style={{ objectFit: 'cover' }}></img>
                             <div className=""
                                 style={{
@@ -114,7 +114,7 @@ function Recom() {
                         </div>
 
                         <div style={{ position: 'relative' }}
-                            className={`d-flex-col mx-2 ${index > 3 ? 'd-lg-none d-sm-block d-none' : 'd-none'}`} key={index}>
+                            className={`d-flex-col mx-2 ${index > 3 ? 'd-lg-none d-sm-block d-none' : 'd-none'}`} key={(index+1)*22}>
                             <img src={item.firstPhoto} alt={"Zdjęcie polecanej oferty " + index} width={300} height={300} style={{ objectFit: 'cover' }}></img>
                             <div className=""
                                 style={{
@@ -128,7 +128,7 @@ function Recom() {
                         </div>
 
                         <div style={{ position: 'relative' }}
-                            className={`d-flex-col mx-2 ${index >4 ? 'd-sm-none d-xs-block' : 'd-none'}`} key={index}>
+                            className={`d-flex-col mx-2 ${index >4 ? 'd-sm-none d-xs-block' : 'd-none'}`} key={(index+1)*14}>
                             <img src={item.firstPhoto} alt={"Zdjęcie polecanej oferty " + index} width={300} height={300} style={{ objectFit: 'cover' }}></img>
                             <div className=""
                                 style={{

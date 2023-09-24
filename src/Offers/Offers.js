@@ -85,19 +85,19 @@ function Offers({ rent, mielec }) {
                 break;
         }
 
-    }, [categoryId, rent, mielec]);
+    }, [categoryId, rent, mielec, category]);
 
     return (
         <div className='py-4' style={{ 'background': '#F2F3F4' }}>
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className="container">
+                <div className="container" style={{minHeight:"75vh"}}>
                     <h2 className="ms-4 mb-4">{category.charAt(0).toUpperCase()}{category.slice(1)} na {category === 'zrealizowane' ? 'oferty' : (rent !== undefined && rent === true) ? 'wynajem' : 'sprzedaż'}</h2>
                     <ul>
                         {data.map((item, index) => (
                             <div key={index + 999}>
-                                <Link key={item.id} to={`/${category}/` + item.id} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
+                                <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
                                     <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
                                             loading='' width={300}
@@ -118,7 +118,7 @@ function Offers({ rent, mielec }) {
                                         </div>
                                     </div>
                                 </Link>
-                                <Link key={item.id + 10000} to={`/${category}/` + item.id} className={`text-decoration-none d-lg-none`}>
+                                <Link key={item.id + 10000} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`text-decoration-none d-lg-none`}>
                                     <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
                                             loading='' width='100%'
@@ -147,7 +147,7 @@ function Offers({ rent, mielec }) {
                         ))}
                         {dataRest.map((item, index) => (
                             <div key={index + 1999}>
-                            <Link key={item.id} to={`/${category}/` + item.id} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
+                            <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
                                 <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
                                     <img src={`${baseApiUrl}/${item.thumbnail}`}
                                         loading='' width={300}
@@ -168,7 +168,7 @@ function Offers({ rent, mielec }) {
                                     </div>
                                 </div>
                             </Link>
-                            <Link key={item.id + 10000} to={`/${category}/` + item.id} className={`text-decoration-none d-lg-none`}>
+                            <Link key={item.id + 10000} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`text-decoration-none d-lg-none`}>
                                 <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`}>
                                     <img src={`${baseApiUrl}/${item.thumbnail}`}
                                         loading='' width='100%'

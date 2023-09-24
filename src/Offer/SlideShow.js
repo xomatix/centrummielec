@@ -30,10 +30,8 @@ function SlideShow({ photosUrls }) {
         e.preventDefault()
         if (step === 1) {
             setMainPhoto((mainPhoto + 1) % photos.length)
-            console.log(mainPhoto)
         } else {
             setMainPhoto(mainPhoto === 0 ? photos.length - 1 : mainPhoto - 1)
-            console.log(mainPhoto)
         }
     }
 

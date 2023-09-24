@@ -138,13 +138,14 @@ function Login() {
     }
 
     return (
-        <div>
-            <h2>Strona logowania {localStorage.getItem('token') !== null && <Link to='/'><button onClick={Logout}>Wyloguj</button></Link>}</h2>
+        <div className='container' style={{ minHeight: '75vh' }}>
+            <h2 className='text-center my-5'>Strona logowania {localStorage.getItem('token') !== null && <Link to='/'><button className='btn btn-warning' onClick={Logout}>Wyloguj</button></Link>}</h2>
             {localStorage.getItem('token') === null &&
-                <form onSubmit={handleSubmit}>
-                    <div>
+                <form onSubmit={handleSubmit} className='col-md-4 mx-auto'>
+                    <div className='form-group'>
                         <label htmlFor="username">Username:</label>
                         <input
+                            className='form-control'
                             placeholder="Login"
                             type="text"
                             id="username"
@@ -153,9 +154,10 @@ function Login() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
+                    <div className='form-group'>
                         <label htmlFor="password">Password:</label>
                         <input
+                            className='form-control'
                             placeholder="Hasło"
                             type="password"
                             id="password"
@@ -164,12 +166,14 @@ function Login() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <button type="submit">Login</button>
+                    <div className='' width='100%'>
+                        <button className='btn btn-success my-3 btn-lg' style={{ minWidth: '100%' }} type="submit">Zaloguj</button>
                     </div>
+                    {!isLoggedIn && <div className='card bg-danger border text-center'>
+                        <p className='p-2 m-auto text-light'>Nie zalogowano!</p>
+                    </div>}
                 </form>
             }
-            {!isLoggedIn && <p>Nie zalogowano!</p>}
         </div>
     )
 }

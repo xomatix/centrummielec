@@ -34,7 +34,6 @@ function Contact() {
                     <p>
                         Adres: Ul. Szeroka 1<br/>
                         39-300 Mielec<br/>
-                        Tel: 17 788 51 37<br/>
                         <br/>
                         Monika Piotrowska:  <a href='tel:602575735'>602 57 57 35</a><br/>
                         Aneta Wyzina:   <a href='tel:730582885'>730 58 28 85</a><br/>
