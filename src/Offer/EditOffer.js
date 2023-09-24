@@ -165,7 +165,7 @@ function EditOffer() {
     photos: '',
     location: '',
     location_text: '',
-    category: 'Mieszknia',
+    category: 'Mieszkania',
     status: 'Aktualne',
     offer_type: 'Sprzedaz',
     is_recommended: 'Nie',
