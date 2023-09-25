@@ -121,8 +121,8 @@ async function addWatermark(file, watermarkText) {
         ctx.drawImage(image, 0, 0);
 
         ctx.font = '24px Arial';
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
-        ctx.fillText(watermarkText, 20, image.height - 20);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.fillText(watermarkText, (image.width/2)-150, (image.height/2) );
 
         canvas.toBlob((blob) => {
           resolve(blob);
@@ -304,6 +304,7 @@ function EditOffer() {
       status: status,
       offer_type: offer_type,
       parameters: parametersList,
+      photos: id !== undefined ? data.photos  : '',
     };
     //console.log(formData);
 
@@ -345,6 +346,7 @@ function EditOffer() {
     photos.forEach((photo, index) => {
       formDataPhoto.append(`photo${index}`, photo)
     })
+    console.log(photos)
     try {
       const response = await fetch(fullUrlPhoto, {
         method: 'POST',
@@ -358,12 +360,12 @@ function EditOffer() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
       setIsUploaded(true);
       window.location = `/${data.category.toLowerCase()}/${id}`;
     } catch (error) {
       console.error('Error:', error);
       setIsUploaded(false);
+      window.location = `/${data.category.toLowerCase()}/${id}`;
     }
   }
 

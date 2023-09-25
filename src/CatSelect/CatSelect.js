@@ -52,7 +52,7 @@ function CatSelect() {
                 <div className='row d-flex flex-column text-center mx-auto' 
                 style={{minWidth:300, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
                     <div className='mb-5 text-light'>
-                        <h2>Spełniamy marzenia</h2>
+                        <h2>Działamy od 1999r.</h2>
 
                     </div>
                     <div className=' p-4 d-flex justify-content-around' style={{background: '#F2F3F4'}}>
