@@ -63,6 +63,10 @@ function Offers({ rent, mielec }) {
                 });
                 json.forEach(element => {
                     element.parameters = JSON.parse(element.parameters == null ? '[]' : element.parameters)
+                    let decimal = element.price.toString().split('.')[1] === undefined ? '' : '.'+element.price.toString().split('.')[1]
+                    let normal_part = element.price.toString().split('.')[0]
+                    element.price_text = normal_part.split("").reverse().join('').replace(/(.{3})/g, '$1 ').split('').reverse().join('') + decimal
+                    // console.log(normal_part.split("").reverse().join('').replace(/(.{3})/g, '$1 ').split('').reverse().join('') + decimal)
                 })
                 //sortowanie po dacie
                 json.sort((a,b) => new Date(b.date_of_creation) - new Date(a.date_of_creation))
@@ -111,7 +115,7 @@ function Offers({ rent, mielec }) {
                                             <p>
                                                 {item.location_text}<br />
                                                 Powierzchnia: {item.size}{item.size_unit}<br />
-                                                Cena: <b>{item.price} {item.price_unit}</b><br />
+                                                Cena: <b>{item.price_text} {item.price_unit}</b><br />
                                                 {/* <div dangerouslySetInnerHTML={{ __html: `` }}></div> */}
                                                 Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
                                                 {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
@@ -136,7 +140,7 @@ function Offers({ rent, mielec }) {
                                             <h5>{item.title.slice(0, 50)}{item.title.length > 50 ? '...' : ''}</h5>
                                             <p>
                                                 {item.location_text}<br />
-                                                Cena: <b>{item.price} {item.price_unit}</b><br />
+                                                Cena: <b>{item.price_text} {item.price_unit}</b><br />
                                                 Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
                                                 Powierzchnia: {item.size}{item.size_unit}<br />
                                                 {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
@@ -161,7 +165,7 @@ function Offers({ rent, mielec }) {
                                             <h4>{item.title}</h4>
                                             <p>
                                                 {item.location_text}<br />
-                                                Cena: <b>{item.price} {item.price_unit}</b><br />
+                                                Cena: <b>{item.price_text} {item.price_unit}</b><br />
                                                 Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
                                                 Powierzchnia: {item.size}{item.size_unit}<br />
                                                 {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
@@ -186,7 +190,7 @@ function Offers({ rent, mielec }) {
                                             <h5>{item.title.slice(0, 50)}{item.title.length > 50 ? '...' : ''}</h5>
                                             <p>
                                                 {item.location_text}<br />
-                                                Cena: <b>{item.price} {item.price_unit}</b><br />
+                                                Cena: <b>{item.price_text} {item.price_unit}</b><br />
                                                 Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
                                                 Powierzchnia: {item.size}{item.size_unit}<br />
                                                 {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}

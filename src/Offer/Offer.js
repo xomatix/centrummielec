@@ -55,7 +55,10 @@ function Offer() {
                     json.firstPhoto = json.photos.split(',')[0];
 
                 json.parameters = json.parameters !== "" ? JSON.parse(json.parameters) : "";
-                
+                let decimal = json.price.toString().split('.')[1] === undefined ? '' : '.' + json.price.toString().split('.')[1]
+                let normal_part = json.price.toString().split('.')[0]
+                json.price = normal_part.split("").reverse().join('').replace(/(.{3})/g, '$1 ').split('').reverse().join('') + decimal
+
                 setData(json);
                 setLoading(false);
             } catch (error) {
@@ -75,12 +78,12 @@ function Offer() {
         const doc = parser.parseFromString(htmlElementString, 'text/html');
         const element = doc.body.firstChild;
 
-        if(element === undefined || element === null)
+        if (element === undefined || element === null)
             return '<div></div>';
-        else{
+        else {
             element.style.width = '100%';
             element.style.height = '400px';
-            
+
             return element.outerHTML;
         }
     }
@@ -96,9 +99,9 @@ function Offer() {
         <div className='container mt-4'>
             {loading ? <h1>Loading...</h1> :
                 <div className='row'>
-                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status===1 ? '': 'd-none'}`} width = '100%' >REZERWACJA</div>
+                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 1 ? '' : 'd-none'}`} width='100%' >REZERWACJA</div>
                     <div className='col-md-12'>
-                        <SlideShow photosUrls={data.photos.split(',')}/>
+                        <SlideShow photosUrls={data.photos.split(',')} />
                     </div>
                     <div className='mt-2'>
                         <div className='row'>
@@ -133,13 +136,13 @@ function Offer() {
                             </table>
                         </div>
                         <h4>Opis:</h4>
-                        {data.description.split('\n').map(line => 
-                            <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}${line.replace('*','')}${line.startsWith("*") ? '</b>' : ''}<br/>`}}></div>
+                        {data.description.split('\n').map(line =>
+                            <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}${line.replace('*', '')}${line.startsWith("*") ? '</b>' : ''}<br/>` }}></div>
                             // <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}pogrób${line.startsWith("*") ? '</b>' : ''}`}}>{line.startsWith("*") ? '<b>' : ''}{line}{line.startsWith("*") ? '</b>' : ''}</div>
                         )}
                         {/* <p>{data.description.split('\n')[0]}</p> */}
                         {/* <p className='mb-4' style={{whiteSpace:'pre-line'}}>{data.description}</p> */}
-                        <div id='map' className='my-4' dangerouslySetInnerHTML={{ __html: resizeMap(data.location)}}></div>
+                        <div id='map' className='my-4' dangerouslySetInnerHTML={{ __html: resizeMap(data.location) }}></div>
 
                         {/** dla zalogowanych */}
                         <div className="text-center">
