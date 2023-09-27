@@ -121,9 +121,9 @@ async function addWatermark(file, watermarkText) {
 
         ctx.drawImage(image, 0, 0);
 
-        ctx.font = '24px Arial';
+        ctx.font = image.size <= 500000 ? (image.size < 200000? '14px Arial' : '24px Arial') : '56px Arial';
         ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.fillText(watermarkText, (image.width/2)-150, (image.height/2) );
+        ctx.fillText(watermarkText, (image.width / 2) - 150, (image.height / 2));
 
         canvas.toBlob((blob) => {
           resolve(blob);
@@ -305,7 +305,7 @@ function EditOffer() {
       status: status,
       offer_type: offer_type,
       parameters: parametersList,
-      photos: id !== undefined ? data.photos  : '',
+      photos: id !== undefined ? data.photos : '',
     };
     //console.log(formData);
 
@@ -469,23 +469,23 @@ function EditOffer() {
       </div>
     </div>);
 
-
-
   const handleEditPhotoUpload = async (e) => {
     let currPhoto = e.target.files[0]
     if (e.target.files.length === 0) {
       return;
     }
     if (currPhoto.size > 500000) {
-      //const case_is_to_big = await window.confirm("Zdjęcie zbyt duże czy skompresować?")
-      if( true)
-      new Compressor(e.target.files[0], {
-        quality: 0.5, // 0.6 can also be used, but its not recommended to go below.
-        success: (compressedResult) => {
-          currPhoto = new File([compressedResult], compressedResult.name)
-        },
-      });
-      else{
+      const case_is_to_big = window.confirm("Zdjęcie zbyt duże czy skompresować?")
+      if (case_is_to_big === true) {
+
+        await new Compressor(e.target.files[0], {
+          quality: 0.75, // 0.6 can also be used, but its not recommended to go below.
+          success: (compressedResult) => {
+            currPhoto = new File([compressedResult], compressedResult.name)
+          },
+        });
+      }
+      else {
         setIsPhotoTooBig(true);
         return;
       }
@@ -531,10 +531,21 @@ function EditOffer() {
     setData({ ...data, photos: updatedPhotosLinks.join(',') })
   }
 
+  const handleEditSwap = (index, direction) => {
+    const photosLength = data.photos.split(',').length-1
+    if(index + direction > photosLength || index + direction < 0)
+      return;
+    const mainPhoto = data.photos.split(',')[index]
+    let updatedPhotosLinks = data.photos.split(',')
+    updatedPhotosLinks[index] = updatedPhotosLinks[index+direction]
+    updatedPhotosLinks[index+direction] = mainPhoto
+    setData({ ...data, photos: updatedPhotosLinks.join(',') })
+  }
+
   const photosEditComponent = (
     <div className={bootstrapStyle.formDiv}>
-      <div class="input-group mb-3">
-        <input type="file" class="form-control" id="inputGroupFile" accept='image/*' onChange={handleEditPhotoUpload} />
+      <div class="input-group mb-3 ">
+        <input type="file" className="form-control" id="inputGroupFile" accept='image/*' onChange={handleEditPhotoUpload} ></input>
         {!isPhotoTooBig && <label class="input-group-text" for="inputGroupFile">Ok</label>}
         {isPhotoTooBig && <label class="input-group-text bg-danger text-light" for="inputGroupFile">Rozmiar zbyt duży</label>}
       </div>
@@ -551,6 +562,18 @@ function EditOffer() {
               className="btn btn-success mt-2 "
               onClick={() => handleEditDoubleclick(index)}
             >Ustaw jako pierwsze 👈</button>
+            <div className='d-flex justify-content-between'>
+              <button
+                type='button'
+                className="btn btn-warning mt-2 "
+                onClick={(e) => {e.preventDefault();handleEditSwap(index, -1);}}
+              >&#10094; W lewo</button>
+              <button
+                type='button'
+                className="btn btn-warning mt-2 "
+                onClick={(e) => {e.preventDefault();handleEditSwap(index, 1);}}
+              >W prawo &#10095;</button>
+            </div>
             <button
               type='button'
               className="btn btn-danger mt-2 "
@@ -566,20 +589,19 @@ function EditOffer() {
       <h1>Add or edit offer</h1>
       <form onSubmit={handleSubmit}>
         {/* photos zdjecia*/}
-        {id === undefined && photosComponent}
+        {/* {id === undefined && photosComponent} */}
         {id !== undefined && photosEditComponent}
-        
         {/* data */}
         <input
-            required
-            className={bootstrapStyle.input}
-            placeholder="Tytuł"
-            type="date"
-            id="date_of_creation"
-            name="date_of_creation"
-            value={data.date_of_creation}
-            onChange={handleInputChange}
-          />
+          required
+          className={bootstrapStyle.input}
+          placeholder="Tytuł"
+          type="date"
+          id="date_of_creation"
+          name="date_of_creation"
+          value={data.date_of_creation}
+          onChange={handleInputChange}
+        />
         {/* tytuł */}
         <div className={bootstrapStyle.formDiv}>
           <label htmlFor="title" className={bootstrapStyle.label}>Tytuł:</label>
@@ -626,11 +648,12 @@ function EditOffer() {
           </div>
         </div>
         {/* Opis */}
-        <div className={bootstrapStyle.formDiv}>
+        <div className={bootstrapStyle.formDiv } >
           <label htmlFor="description" className={bootstrapStyle.label}>Opis:</label>
           <textarea
             required
             className={bootstrapStyle.input}
+            style={{height:400}}
             placeholder="Opis"
             type="text"
             id="description"
@@ -766,6 +789,20 @@ function EditOffer() {
             id="location_text"
             name="location_text"
             value={data.location_text}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        {/* url video*/}
+        <div className={bootstrapStyle.formDiv}>
+          <label htmlFor="video" className={bootstrapStyle.label}>Iframe video:</label>
+          <input
+            className={bootstrapStyle.input}
+            placeholder="iframe video"
+            type="text"
+            id="video"
+            name="video"
+            value={data.video}
             onChange={handleInputChange}
           />
         </div>

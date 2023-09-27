@@ -57,7 +57,7 @@ function Offer() {
                 json.parameters = json.parameters !== "" ? JSON.parse(json.parameters) : "";
                 let decimal = json.price.toString().split('.')[1] === undefined ? '' : '.' + json.price.toString().split('.')[1]
                 let normal_part = json.price.toString().split('.')[0]
-                json.price = normal_part.split("").reverse().join('').replace(/(.{3})/g, '$1 ').split('').reverse().join('') + decimal
+                json.price_text = normal_part.split("").reverse().join('').replace(/(.{3})/g, '$1 ').split('').reverse().join('') + decimal
 
                 setData(json);
                 setLoading(false);
@@ -103,6 +103,11 @@ function Offer() {
                     <div className='col-md-12'>
                         <SlideShow photosUrls={data.photos.split(',')} />
                     </div>
+                    {/**video button */}
+                    {true &&
+                        <div className='my-4 d-flex flex-column justify-content-center'>
+                            <button type='button' className='btn btn-success mx-auto'>Film z Nieruchomości</button>
+                        </div>}
                     <div className='mt-2'>
                         <div className='row'>
                             <div className='col-md-9'>
@@ -110,7 +115,7 @@ function Offer() {
                                 <a href='#map' className='text-success'>{data.location_text}</a>
                             </div>
                             <div className='col-md-3 '>
-                                <h3 className=''><b>{data.price}</b> {data.price_unit}</h3>
+                                <h3 className=''><b>{data.price_text}</b> {data.price_unit}</h3>
                                 {data.offer_type === 0 && <p className=''><b>{Math.floor(data.price / data.size)}</b> {data.price_unit}/{data.size_unit}</p>}
                             </div>
                         </div>
