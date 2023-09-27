@@ -52,7 +52,7 @@ function Offers({ rent, mielec }) {
                 } else if (mielec === false) {
                     json = json.filter(element => element.location_text === null || !element.location_text.toLowerCase().includes('mielec'))
                 }
-                
+
                 json.forEach(element => {
                     if (element.photos === '' || element.photos === null)
                         return;
@@ -64,6 +64,9 @@ function Offers({ rent, mielec }) {
                 json.forEach(element => {
                     element.parameters = JSON.parse(element.parameters == null ? '[]' : element.parameters)
                 })
+                //sortowanie po dacie
+                json.sort((a,b) => new Date(b.date_of_creation) - new Date(a.date_of_creation))
+
                 if (page === 0)
                     setData(json);
                 else
@@ -92,11 +95,62 @@ function Offers({ rent, mielec }) {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className="container" style={{minHeight:"75vh"}}>
+                <div className="container" style={{ minHeight: "75vh" }}>
                     <h2 className="ms-4 mb-4">{category.charAt(0).toUpperCase()}{category.slice(1)} na {category === 'zrealizowane' ? 'oferty' : (rent !== undefined && rent === true) ? 'wynajem' : 'sprzedaż'}</h2>
                     <ul>
                         {data.map((item, index) => (
                             <div key={index + 999}>
+                                <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
+                                    <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
+                                        <img src={`${baseApiUrl}/${item.thumbnail}`}
+                                            loading='' width={300}
+                                            height={250}
+                                            className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
+                                        <div className="list-item-data p-3 ">
+                                            <h4>{item.title}</h4>
+                                            <p>
+                                                {item.location_text}<br />
+                                                Powierzchnia: {item.size}{item.size_unit}<br />
+                                                Cena: <b>{item.price} {item.price_unit}</b><br />
+                                                {/* <div dangerouslySetInnerHTML={{ __html: `` }}></div> */}
+                                                Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
+                                                {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
+                                                {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
+                                                {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
+                                            </p>
+                                            {categoryId !== 0 && !(categoryId === 3 && rent) && <p>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                        </div>
+                                    </div>
+                                </Link>
+                                <Link key={item.id + 10000} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`text-decoration-none d-lg-none`}>
+                                    <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`}>
+                                        <img src={`${baseApiUrl}/${item.thumbnail}`}
+                                            loading='' width='100%'
+                                            height={410}
+                                            className={"coloumn d-none d-sm-block p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
+                                        <img src={`${baseApiUrl}/${item.thumbnail}`}
+                                            loading='' width='100%'
+                                            height={200}
+                                            className={"coloumn d-xs-block d-sm-none p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
+                                        <div className="column list-item-data p-3 ">
+                                            <h5>{item.title.slice(0, 50)}{item.title.length > 50 ? '...' : ''}</h5>
+                                            <p>
+                                                {item.location_text}<br />
+                                                Cena: <b>{item.price} {item.price_unit}</b><br />
+                                                Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
+                                                Powierzchnia: {item.size}{item.size_unit}<br />
+                                                {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
+                                                {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
+                                                {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
+                                            </p>
+                                            {categoryId !== 0 && !(categoryId === 3 && rent) && <p className='d-none d-md-block'>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                        {dataRest.map((item, index) => (
+                            <div key={index + 1999}>
                                 <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
                                     <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
@@ -144,56 +198,6 @@ function Offers({ rent, mielec }) {
                                     </div>
                                 </Link>
                             </div>
-                        ))}
-                        {dataRest.map((item, index) => (
-                            <div key={index + 1999}>
-                            <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
-                                <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
-                                    <img src={`${baseApiUrl}/${item.thumbnail}`}
-                                        loading='' width={300}
-                                        height={250}
-                                        className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                    <div className="list-item-data p-3 ">
-                                        <h4>{item.title}</h4>
-                                        <p>
-                                            {item.location_text}<br />
-                                            Cena: <b>{item.price} {item.price_unit}</b><br />
-                                            Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
-                                            Powierzchnia: {item.size}{item.size_unit}<br />
-                                            {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
-                                            {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
-                                            {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
-                                        </p>
-                                        {categoryId !== 0 && !(categoryId === 3 && rent) && <p>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link key={item.id + 10000} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`text-decoration-none d-lg-none`}>
-                                <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`}>
-                                    <img src={`${baseApiUrl}/${item.thumbnail}`}
-                                        loading='' width='100%'
-                                        height={410}
-                                        className={"coloumn d-none d-sm-block p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                    <img src={`${baseApiUrl}/${item.thumbnail}`}
-                                        loading='' width='100%'
-                                        height={200}
-                                        className={"coloumn d-xs-block d-sm-none p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                    <div className="column list-item-data p-3 ">
-                                        <h5>{item.title.slice(0, 50)}{item.title.length > 50 ? '...' : ''}</h5>
-                                        <p>
-                                            {item.location_text}<br />
-                                            Cena: <b>{item.price} {item.price_unit}</b><br />
-                                            Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
-                                            Powierzchnia: {item.size}{item.size_unit}<br />
-                                            {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
-                                            {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
-                                            {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
-                                        </p>
-                                        {categoryId !== 0 && !(categoryId === 3 && rent) && <p className='d-none d-md-block'>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
                         ))}
                     </ul>
                 </div>

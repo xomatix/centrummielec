@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { baseApiUrl } from '../Variables'
+import Compressor from 'compressorjs';
 
 function getFormattedDate() {
   const today = new Date();
@@ -102,7 +103,7 @@ async function fetchDataFromApi(id) {
 }
 
 
-//from there
+//from there photos edits
 async function addWatermark(file, watermarkText) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -468,17 +469,30 @@ function EditOffer() {
       </div>
     </div>);
 
+
+
   const handleEditPhotoUpload = async (e) => {
+    let currPhoto = e.target.files[0]
     if (e.target.files.length === 0) {
       return;
     }
-    if (e.target.files[0].size > 500000) {
-      setIsPhotoTooBig(true);
-      return;
+    if (currPhoto.size > 500000) {
+      //const case_is_to_big = await window.confirm("Zdjęcie zbyt duże czy skompresować?")
+      if( true)
+      new Compressor(e.target.files[0], {
+        quality: 0.5, // 0.6 can also be used, but its not recommended to go below.
+        success: (compressedResult) => {
+          currPhoto = new File([compressedResult], compressedResult.name)
+        },
+      });
+      else{
+        setIsPhotoTooBig(true);
+        return;
+      }
     }
     if (id !== undefined) {
       const resp = async () => {
-        const photoWithWatermark = await addWatermarkToImage(e.target.files[0], "Centrum Nieruchomości Mielec")
+        const photoWithWatermark = await addWatermarkToImage(currPhoto, "Centrum Nieruchomości Mielec")
         // const photoWithWatermark = e.target.files[0]
         uploadPhoto(photoWithWatermark, id)
           .then((response) => {
@@ -554,7 +568,18 @@ function EditOffer() {
         {/* photos zdjecia*/}
         {id === undefined && photosComponent}
         {id !== undefined && photosEditComponent}
-
+        
+        {/* data */}
+        <input
+            required
+            className={bootstrapStyle.input}
+            placeholder="Tytuł"
+            type="date"
+            id="date_of_creation"
+            name="date_of_creation"
+            value={data.date_of_creation}
+            onChange={handleInputChange}
+          />
         {/* tytuł */}
         <div className={bootstrapStyle.formDiv}>
           <label htmlFor="title" className={bootstrapStyle.label}>Tytuł:</label>

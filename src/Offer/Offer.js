@@ -133,8 +133,13 @@ function Offer() {
                             </table>
                         </div>
                         <h4>Opis:</h4>
-                        <p className='mb-4'>{data.description}</p>
-                        <div id='map' className='mb-4' dangerouslySetInnerHTML={{ __html: resizeMap(data.location)}}></div>
+                        {data.description.split('\n').map(line => 
+                            <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}${line.replace('*','')}${line.startsWith("*") ? '</b>' : ''}<br/>`}}></div>
+                            // <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}pogrób${line.startsWith("*") ? '</b>' : ''}`}}>{line.startsWith("*") ? '<b>' : ''}{line}{line.startsWith("*") ? '</b>' : ''}</div>
+                        )}
+                        {/* <p>{data.description.split('\n')[0]}</p> */}
+                        {/* <p className='mb-4' style={{whiteSpace:'pre-line'}}>{data.description}</p> */}
+                        <div id='map' className='my-4' dangerouslySetInnerHTML={{ __html: resizeMap(data.location)}}></div>
 
                         {/** dla zalogowanych */}
                         <div className="text-center">
