@@ -32,7 +32,7 @@ function Offers({ rent, mielec }) {
     useEffect(() => {
         // Function to fetch data from the API
         async function fetchData(page) {
-            let rentQuery = rent !== undefined && rent ? '&offer_type=1' : '&offer_type=0'
+            let rentQuery = rent !== undefined && rent ? '&offer_type=1' : (categoryId === -1 ? '' : '&offer_type=0')
             if (categoryId === 1 || categoryId === 2)
                 rentQuery = ''
             let categoryQuery = categoryId !== -1 ? `category=${categoryId}&` : ''
