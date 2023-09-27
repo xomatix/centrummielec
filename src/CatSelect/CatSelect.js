@@ -47,7 +47,7 @@ function CatSelect() {
                     style={{ objectFit: 'cover', top: 0, left: 0 }} alt='tło' />
                 <div style={{
                     height: '100%', width: '100%', position: 'absolute',
-                    top: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7))'
+                    top: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.55))'
                 }}></div>
                 <div className='row d-flex flex-column text-center mx-auto' 
                 style={{minWidth:300, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>

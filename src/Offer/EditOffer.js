@@ -280,6 +280,9 @@ function EditOffer() {
       case 'sprzedane':
         status = 2;
         break;
+      case 'zrealizowane':
+        status = 3;
+        break;
 
       default:
         break;
@@ -439,6 +442,7 @@ function EditOffer() {
     setPhotos(updatedPhotos);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const photosComponent = (
     <div className={bootstrapStyle.formDiv}>
       <div class="input-group mb-3">
@@ -745,6 +749,7 @@ function EditOffer() {
             <option>Aktualne</option>
             <option>Rezerwacja</option>
             <option>Sprzedane</option>
+            <option>Zrealizowane</option>
           </select>
         </div>
 

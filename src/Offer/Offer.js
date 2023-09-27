@@ -90,7 +90,7 @@ function Offer() {
     }
 
     function resizeVideo(videoString) {
-        const htmlElementString = videoString.replace('autoplay;', '');
+        const htmlElementString = videoString.replace('autoplay;', '').replace('accelerometer;', '');
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlElementString, 'text/html');
         const element = doc.body.firstChild;
@@ -121,7 +121,7 @@ function Offer() {
             {loading ? <h1>Loading...</h1> :
                 <div className='row'>
                     <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 1 ? '' : 'd-none'}`} width='100%' >REZERWACJA</div>
-                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 3 ? '' : 'd-none'}`} width='100%' >ZREALIZOWANE</div>
+                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 3 ? '' : 'd-none'}`} width='100%' >SRZEDANE W OSTATNIM CZASIE</div>
                     <div className='col-md-12'>
                         <SlideShow photosUrls={data.photos.split(',')} />
                     </div>

@@ -110,7 +110,7 @@ function Offers({ rent, mielec }) {
                                             loading='' width={300}
                                             height={250}
                                             className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                        <div className="list-item-data p-3 ">
+                                        <div className="list-item-data p-3 d-flex flex-column my-auto" style={{width:'100%'}}>
                                             <h4>{item.title}</h4>
                                             <p>
                                                 {item.location_text}<br />
@@ -122,7 +122,8 @@ function Offers({ rent, mielec }) {
                                                 {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
                                                 {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
                                             </p>
-                                            {categoryId !== 0 && !(categoryId === 3 && rent) && <p>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {(item.status !== 3 && categoryId !== 0 && !(categoryId === 3 && rent)) && <p>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {item.status === 3 && <div className="p-2 mx-auto rounded bg-danger text-light text-center" style={{minWidth:'100%'}}><b>Sprzedane w ostatnim czasie</b></div>}
                                         </div>
                                     </div>
                                 </Link>
@@ -136,7 +137,7 @@ function Offers({ rent, mielec }) {
                                             loading='' width='100%'
                                             height={200}
                                             className={"coloumn d-xs-block d-sm-none p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                        <div className="column list-item-data p-3 ">
+                                        <div className="column list-item-data p-3 my-auto">
                                             <h5>{item.title.slice(0, 50)}{item.title.length > 50 ? '...' : ''}</h5>
                                             <p>
                                                 {item.location_text}<br />
@@ -147,7 +148,8 @@ function Offers({ rent, mielec }) {
                                                 {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
                                                 {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
                                             </p>
-                                            {categoryId !== 0 && !(categoryId === 3 && rent) && <p className='d-none d-md-block'>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {item.status !== 3 && categoryId !== 0 && !(categoryId === 3 && rent) && <p className='d-none d-md-block'>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {item.status === 3 && <div className="p-2 mx-auto rounded bg-danger text-light text-center" style={{minWidth:'100%'}}><b>Sprzedane w ostatnim czasie</b></div>}
                                         </div>
                                     </div>
                                 </Link>
@@ -161,18 +163,20 @@ function Offers({ rent, mielec }) {
                                             loading='' width={300}
                                             height={250}
                                             className={""} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                        <div className="list-item-data p-3 ">
+                                        <div className="list-item-data p-3 d-flex flex-column my-auto" style={{width:'100%'}}>
                                             <h4>{item.title}</h4>
                                             <p>
                                                 {item.location_text}<br />
-                                                Cena: <b>{item.price_text} {item.price_unit}</b><br />
-                                                Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
                                                 Powierzchnia: {item.size}{item.size_unit}<br />
+                                                Cena: <b>{item.price_text} {item.price_unit}</b><br />
+                                                {/* <div dangerouslySetInnerHTML={{ __html: `` }}></div> */}
+                                                Cena za {item.size_unit}: {Math.floor(item.price / item.size)} {item.price_unit}/{item.size_unit}<br />
                                                 {(categoryId === 0 && 'Piętro' in item.parameters) && <>Piętro: {item.parameters['Piętro']}<br /></>}
                                                 {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
                                                 {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
                                             </p>
-                                            {categoryId !== 0 && !(categoryId === 3 && rent) && <p>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {(item.status !== 3 && categoryId !== 0 && !(categoryId === 3 && rent)) && <p>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {item.status === 3 && <div className="p-2 mx-auto rounded bg-danger text-light text-center" style={{minWidth:'100%'}}><b>Sprzedane w ostatnim czasie</b></div>}
                                         </div>
                                     </div>
                                 </Link>
@@ -186,7 +190,7 @@ function Offers({ rent, mielec }) {
                                             loading='' width='100%'
                                             height={200}
                                             className={"coloumn d-xs-block d-sm-none p-0"} style={{ 'objectFit': 'cover', 'objectPosition': 'center', 'aspectRatio': '30/25' }} alt="Item" />
-                                        <div className="column list-item-data p-3 ">
+                                        <div className="column list-item-data p-3 my-auto">
                                             <h5>{item.title.slice(0, 50)}{item.title.length > 50 ? '...' : ''}</h5>
                                             <p>
                                                 {item.location_text}<br />
@@ -197,7 +201,8 @@ function Offers({ rent, mielec }) {
                                                 {(categoryId === 2 && 'Media' in item.parameters) && <>Media: {item.parameters['Media']}<br /></>}
                                                 {((categoryId === 0 || (categoryId === 3 && rent)) && rent && 'Opłaty' in item.parameters) && <>Opłaty: {item.parameters['Opłaty']}<br /></>}
                                             </p>
-                                            {categoryId !== 0 && !(categoryId === 3 && rent) && <p className='d-none d-md-block'>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {item.status !== 3 && categoryId !== 0 && !(categoryId === 3 && rent) && <p className='d-none d-md-block'>{item.description.slice(0, 100)}{item.description.length > 100 && '...'}</p>}
+                                            {item.status === 3 && <div className="p-2 mx-auto rounded bg-danger text-light text-center" style={{minWidth:'100%'}}><b>Sprzedane w ostatnim czasie</b></div>}
                                         </div>
                                     </div>
                                 </Link>
