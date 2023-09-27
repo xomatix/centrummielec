@@ -30,6 +30,7 @@ function Offer() {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [videoOpen, setVideoOpen] = useState(false);
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -88,6 +89,26 @@ function Offer() {
         }
     }
 
+    function resizeVideo(videoString) {
+        const htmlElementString = videoString.replace('autoplay;', '');
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlElementString, 'text/html');
+        const element = doc.body.firstChild;
+
+        if (element === undefined || element === null)
+            return '<div></div>';
+        else {
+            element.width = '100%';
+            element.height = '100%';
+
+            return element.outerHTML;
+        }
+    }
+
+    const togleVideo = () => {
+        setVideoOpen(videoOpen ? false : true);
+    }
+
     /**
      * zdjęcie 1
      * zdjęcia reszta małę
@@ -100,14 +121,21 @@ function Offer() {
             {loading ? <h1>Loading...</h1> :
                 <div className='row'>
                     <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 1 ? '' : 'd-none'}`} width='100%' >REZERWACJA</div>
+                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 3 ? '' : 'd-none'}`} width='100%' >ZREALIZOWANE</div>
                     <div className='col-md-12'>
                         <SlideShow photosUrls={data.photos.split(',')} />
                     </div>
                     {/**video button */}
-                    {true &&
+                    {(data.video !== undefined && data.video !== '') &&
                         <div className='my-4 d-flex flex-column justify-content-center'>
-                            <button type='button' className='btn btn-success mx-auto'>Film z Nieruchomości</button>
+                            <button type='button' className='btn btn-success mx-auto mb-4' onClick={() => togleVideo()}>
+                                <div dangerouslySetInnerHTML={{__html: `${videoOpen ? 'Zamknij film &#10005;' : 'Otwórz film z nieruchomości'}` }}></div>
+                            </button>
+                            {videoOpen &&
+                                <div className='' style={{ height: '50vh' }} dangerouslySetInnerHTML={{ __html: `${resizeVideo(data.video)}` }} ></div>
+                            }
                         </div>}
+
                     <div className='mt-2'>
                         <div className='row'>
                             <div className='col-md-9'>
@@ -143,7 +171,6 @@ function Offer() {
                         <h4>Opis:</h4>
                         {data.description.split('\n').map(line =>
                             <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}${line.replace('*', '')}${line.startsWith("*") ? '</b>' : ''}<br/>` }}></div>
-                            // <div dangerouslySetInnerHTML={{ __html: `${line.startsWith("*") ? '<b>' : ''}pogrób${line.startsWith("*") ? '</b>' : ''}`}}>{line.startsWith("*") ? '<b>' : ''}{line}{line.startsWith("*") ? '</b>' : ''}</div>
                         )}
                         {/* <p>{data.description.split('\n')[0]}</p> */}
                         {/* <p className='mb-4' style={{whiteSpace:'pre-line'}}>{data.description}</p> */}
