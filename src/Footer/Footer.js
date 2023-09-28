@@ -10,8 +10,8 @@ function Footer() {
                     <h2 className='text-center p-2 text-success d-none d-md-block'>DOŁĄCZ DO GRONA NASZYCH KLIENTÓW!</h2>
                     <h5 className='text-center p-2 text-success d-md-none '>DOŁĄCZ DO GRONA NASZYCH KLIENTÓW!</h5>
                 </div>
-
             </div>
+            <div className='text-center text-secondary container' style={{userSelect:'none'}}>powered by Mateusz Świerczek</div>
         </div>
     )
 }
