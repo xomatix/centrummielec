@@ -104,7 +104,8 @@ function Offers({ rent, mielec }) {
                     <ul>
                         {data.map((item, index) => (
                             <div key={index + 999}>
-                                <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
+                                <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} 
+                                style={{boxShadow: '0 0 15px 0px rgba(0, 0, 0, 0.15)'}}>
                                     <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
                                             loading='' width={300}
@@ -128,7 +129,7 @@ function Offers({ rent, mielec }) {
                                     </div>
                                 </Link>
                                 <Link key={item.id + 10000} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`text-decoration-none d-lg-none`}>
-                                    <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`}>
+                                    <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`} style={{boxShadow: '0 0 10px 0px rgba(0, 0, 0, 0.2)'}}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
                                             loading='' width='100%'
                                             height={410}
@@ -157,7 +158,8 @@ function Offers({ rent, mielec }) {
                         ))}
                         {dataRest.map((item, index) => (
                             <div key={index + 1999}>
-                                <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `} >
+                                <Link key={item.id} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`rounded text-decoration-none mb-4 d-none d-lg-block border `}
+                                style={{boxShadow: '0 0 15px 0px rgba(0, 0, 0, 0.2)'}}>
                                     <div className={`list-item text-dark d-flex overflow-hidden text-decoration-none bg-light`}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
                                             loading='' width={300}
@@ -181,7 +183,7 @@ function Offers({ rent, mielec }) {
                                     </div>
                                 </Link>
                                 <Link key={item.id + 10000} to={`/${category}/${item.id}-${item.title.split(' ').join('-')}`} className={`text-decoration-none d-lg-none`}>
-                                    <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`}>
+                                    <div className={`row col-12 rounded list-item text-dark d-flex mb-4 overflow-hidden  border bg-light`} style={{boxShadow: '0 0 10px 0px rgba(0, 0, 0, 0.2)'}}>
                                         <img src={`${baseApiUrl}/${item.thumbnail}`}
                                             loading='' width='100%'
                                             height={410}

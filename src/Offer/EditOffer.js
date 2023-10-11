@@ -121,7 +121,7 @@ async function addWatermark(file, watermarkText) {
 
         ctx.drawImage(image, 0, 0);
 
-        ctx.font = image.size <= 500000 ? (image.size < 200000? '14px Arial' : '24px Arial') : '56px Arial';
+        ctx.font = image.size <= 500000 ? '14px Arial' : '32px Arial';
         ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
         ctx.fillText(watermarkText, (image.width / 2) - 150, (image.height / 2));
 
