@@ -170,6 +170,7 @@ function EditOffer() {
     status: 'Aktualne',
     offer_type: 'Sprzedaz',
     is_recommended: 'Nie',
+    video: '',
     date_of_creation: getFormattedDate()
   });
   const [parametersList, setParametersList] = useState({});
@@ -193,6 +194,7 @@ function EditOffer() {
         location: reqData.location,
         location_text: reqData.location_text,
         date_of_creation: reqData.date_of_creation,
+        video: reqData.video,
         photos: reqData.photos[0] === "," ? reqData.photos.substring(1) : reqData.photos,
       })
       setParametersList(reqData.parameters)
