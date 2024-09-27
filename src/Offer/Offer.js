@@ -74,18 +74,23 @@ function Offer() {
 
 
     function resizeMap(mapString) {
-        const htmlElementString = mapString;
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlElementString, 'text/html');
-        const element = doc.body.firstChild;
-
-        if (element === undefined || element === null)
-            return '<div></div>';
-        else {
-            element.style.width = '100%';
-            element.style.height = '400px';
-
-            return element.outerHTML;
+        try {
+            const htmlElementString = mapString;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlElementString, 'text/html');
+            const element = doc.body.firstChild;
+    
+            if (element === undefined || element === null)
+                return '<div></div>';
+            else {
+                element.style.width = '100%';
+                element.style.height = '400px';
+    
+                return element.outerHTML;
+            }
+            
+        } catch (error) {
+            console.error("can't load map");
         }
     }
 
@@ -121,7 +126,8 @@ function Offer() {
             {loading ? <h1>Loading...</h1> :
                 <div className='row'>
                     <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 1 ? '' : 'd-none'}`} width='100%' >REZERWACJA</div>
-                    <div className={`rounded text-center m-3 col p-2 bg-danger text-light ${data.status === 3 ? '' : 'd-none'}`} width='100%' >SRZEDANE W OSTATNIM CZASIE</div>
+                    <div className={`rounded text-center m-3 col p-2 bg-success text-light ${data.status === 3 && data.offer_type === 0 ? '' : 'd-none'}`} width='100%' >SRZEDANE W OSTATNIM CZASIE</div>
+                    <div className={`rounded text-center m-3 col p-2 bg-success text-light ${data.status === 3 && data.offer_type === 1 ? '' : 'd-none'}`} width='100%' >WYNAJĘTE W OSTATNIM CZASIE</div>
                     <div className='col-md-12'>
                         <SlideShow photosUrls={data.photos.split(',')} />
                     </div>

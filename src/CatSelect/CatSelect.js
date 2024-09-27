@@ -1,80 +1,94 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 function CatSelect() {
-    const [selectedCategory, setSelectedCategory] = useState('Mieszkania')
+  const [selectedCategory, setSelectedCategory] = useState("Mieszkania");
 
-    const handleButtonPressed = (e) => {
-        e.preventDefault()
+  const handleButtonPressed = (e) => {
+    e.preventDefault();
 
-        console.log(selectedCategory.toLowerCase())
-        switch (selectedCategory.toLowerCase()) {
-            case 'mieszkania':
-                window.location = '/mieszkania'
-                break;
-            case 'mieszkania na wynajem':
-                window.location = '/mieszkania/wynajem'
-                break;
-            case 'działki w mielcu':
-                window.location = '/dzialki/mielec'
-                break;
-            case 'działki poza mielcem':
-                window.location = '/dzialki/poza-mielcem'
-                break;
-            case 'domy':
-                window.location = '/domy'
-                break;
-            case 'lokale na sprzedaż':
-                window.location = '/lokale'
-                break;
-            case 'lokale na wynajem':
-                window.location = '/lokale/wynajem'
-                break;
+    console.log(selectedCategory.toLowerCase());
+    switch (selectedCategory.toLowerCase()) {
+      case "mieszkania":
+        window.location = "/mieszkania";
+        break;
+      case "mieszkania na wynajem":
+        window.location = "/mieszkania/wynajem";
+        break;
+      case "działki w mielcu":
+        window.location = "/dzialki/mielec";
+        break;
+      case "działki poza mielcem":
+        window.location = "/dzialki/poza-mielcem";
+        break;
+      case "domy":
+        window.location = "/domy";
+        break;
+      case "lokale na sprzedaż":
+        window.location = "/lokale";
+        break;
+      case "lokale na wynajem":
+        window.location = "/lokale/wynajem";
+        break;
 
-            default:
-                break;
-        }
+      default:
+        break;
     }
+  };
 
-    const handleValueChange = (e) => {
-        e.preventDefault()
-        setSelectedCategory(e.target.value)
-    }
+  const handleValueChange = (e) => {
+    e.preventDefault();
+    setSelectedCategory(e.target.value);
+  };
 
-    return (
-        <div>
-            <div className='main' height={400} style={{ position: 'relative' }}>
-                <img src='https://centrummielec.pl/api/static/back_front.jpg' width={'100%'} height={400}
-                    style={{ objectFit: 'cover', top: 0, left: 0 }} alt='tło' />
-                <div style={{
-                    height: '100%', width: '100%', position: 'absolute',
-                    top: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.55))'
-                }}></div>
-                <div className='row d-flex flex-column text-center mx-auto' 
-                style={{minWidth:300, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
-                    <div className='mb-5 text-light'>
-                        <h2>Działamy od 1999r.</h2>
+  return (
+    <div className="w-full">
+      <div className="main relative" style={{ minHeight: "50vh" }}>
+        <img
+          src="https://centrummielec.pl/api/static/back_front.jpg"
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          alt="background"
+        />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 to-black/50"></div>
 
-                    </div>
-                    <div className=' p-4 d-flex justify-content-around' style={{background: '#F2F3F4'}}>
-                        <div className="form-group me-3">
-                            {/* <label for="formControlSelect">Czego szukasz?</label> */}
-                            <select className="form-control" id="formControlSelect" value={selectedCategory} onChange={e => handleValueChange(e)} placeholder="">
-                                <option>Mieszkania</option>
-                                <option>Mieszkania na wynajem</option>
-                                <option>Domy</option>
-                                <option>Działki w Mielcu</option>
-                                <option>Działki poza Mielcem</option>
-                                <option>Lokale na sprzedaż</option>
-                                <option>Lokale na wynajem</option>
-                            </select>
-                        </div>
+        <div className="absolute inset-0 flex flex-col justify-center items-center">
+          <h2 className="text-white text-2xl mb-8">Działamy od 1999r.</h2>
 
-                        <button className='btn btn-success ' type='button' onClick={e => handleButtonPressed(e)}>Szukaj</button>
-                    </div>
-                </div>
-            </div>
+          <div className="w-full md:max-w-md bg-white rounded-lg p-5 shadow-md flex flex-col space-y-4 mx-4 max-w-[85vw]">
+            <form className="w-full">
+              <label htmlFor="category-select" className="sr-only">
+                Wybierz kategorię
+              </label>
+              <select
+                id="category-select"
+                value={selectedCategory}
+                onChange={handleValueChange}
+                className="block py-2.5 px-0 w-full text-md font-medium text-gray-700 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+              >
+                <option value="Mieszkania">Mieszkania</option>
+                <option value="Mieszkania na wynajem">
+                  Mieszkania na wynajem
+                </option>
+                <option value="Domy">Domy</option>
+                <option value="Działki w Mielcu">Działki w Mielcu</option>
+                <option value="Działki poza Mielcem">
+                  Działki poza Mielcem
+                </option>
+                <option value="Lokale na sprzedaż">Lokale na sprzedaż</option>
+                <option value="Lokale na wynajem">Lokale na wynajem</option>
+              </select>
+            </form>
+
+            <button
+              className="bg-green-600 text-white font-semibold py-2 px-6 w-full rounded-lg hover:bg-green-700 transition-all"
+              onClick={handleButtonPressed}
+            >
+              Szukaj
+            </button>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default CatSelect
+export default CatSelect;
