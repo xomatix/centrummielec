@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { baseApiUrl } from "../Variables";
 import Compressor from "compressorjs";
 import DescEditor from "./DescEditor";
+import { FaPlus, FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { CgClose } from "react-icons/cg";
 
 function getFormattedDate() {
   const today = new Date();
@@ -386,35 +388,24 @@ function EditOffer() {
     }
   };
 
-  const bootstrapStyle = {
-    formDiv: "mb-3 ",
-    formDivRow: "mb-3 row",
-    label: "form-label",
-    formDivCol: "col-md-6",
-    formDivColLarge: "col-md-9",
-    formDivColSmall: "col-md-3",
-    input: "form-control",
-  };
-
   const parametersComponent = Object.keys(parametersList).map((key) => (
-    <div key={key} className={bootstrapStyle.formDivRow}>
-      <div className={bootstrapStyle.formDivColSmall}>
-        <p className={bootstrapStyle.input}>{key}</p>
+    <div key={key} className="flex items-center mb-3">
+      <div className="w-1/4">
+        <p className="font-medium">{key}</p>
       </div>
-      <div className={bootstrapStyle.formDivCol}>
+      <div className="w-3/4 flex">
         <input
-          className={bootstrapStyle.input}
+          className="form-input w-full border rounded-lg p-2 mr-2"
           value={parametersList[key]}
           onChange={(e) => handleParameterInputChange(key, e)}
-        ></input>
-      </div>
-      <div className={bootstrapStyle.formDivColSmall}>
+        />
+
         <button
           type="button"
-          className={"btn btn-danger w-100"}
+          className="bg-red-500 text-white rounded-lg px-4 py-3"
           onClick={(e) => removeParameterField(key, e)}
         >
-          ✖
+          <CgClose />
         </button>
       </div>
     </div>
@@ -469,7 +460,7 @@ function EditOffer() {
 
   // eslint-disable-next-line no-unused-vars
   const photosComponent = (
-    <div className={bootstrapStyle.formDiv}>
+    <div className="">
       <div class="input-group mb-3">
         <input
           type="file"
@@ -608,81 +599,86 @@ function EditOffer() {
   };
 
   const photosEditComponent = (
-    <div className={bootstrapStyle.formDiv}>
-      <div class="input-group mb-3 ">
+    <div className="mb-4 overflow-scroll">
+      {/* File Input */}
+      <div className="input-group mb-3">
+        <label
+          className="block mb-2 text-sm font-medium text-gray-700"
+          htmlFor="file_input"
+        >
+          Upload file
+        </label>
         <input
+          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg p-2 bg-white focus:border-blue-500 focus:outline-none"
+          id="file_input"
           type="file"
-          className="form-control"
-          id="inputGroupFile"
           accept="image/*"
           onChange={handleEditPhotoUpload}
-        ></input>
-        {!isPhotoTooBig && (
-          <label class="input-group-text" for="inputGroupFile">
+        />
+
+        {!isPhotoTooBig ? (
+          <label className="input-group-text" htmlFor="inputGroupFile">
             Ok
           </label>
-        )}
-        {isPhotoTooBig && (
+        ) : (
           <label
-            class="input-group-text bg-danger text-light"
-            for="inputGroupFile"
+            className="input-group-text bg-red-500 text-white"
+            htmlFor="inputGroupFile"
           >
             Rozmiar zbyt duży
           </label>
         )}
       </div>
-      <div className="d-flex overflow-auto">
+
+      {/* Photos Display */}
+      <div className="flex overflow-auto space-x-4">
         {data.photos !== "" &&
           data.photos.split(",").map((photoUrl, index) => (
-            <div
-              key={index}
-              className={`d-flex flex-column my-2 mx-2`}
-              width={300}
-            >
+            <div key={index} className="flex flex-col items-center my-2">
               <img
-                className={"rounded d-inline "}
-                style={{ objectFit: "cover" }}
+                className="rounded object-cover min-w-[300px] h-full"
                 src={baseApiUrl + "/" + photoUrl}
                 alt={`${index}`}
-                width={300}
-                height={300}
+                width={400}
+                height={400}
               />
-              <button
-                type="button"
-                className="btn btn-success mt-2 "
-                onClick={() => handleEditDoubleclick(index)}
-              >
-                Ustaw jako pierwsze 👈
-              </button>
-              <div className="d-flex justify-content-between">
+
+              <div className="flex justify-between mt-2 w-full">
                 <button
                   type="button"
-                  className="btn btn-warning mt-2 "
+                  className="bg-yellow-500 text-white rounded-lg px-4"
                   onClick={(e) => {
                     e.preventDefault();
                     handleEditSwap(index, -1);
                   }}
                 >
-                  &#10094; W lewo
+                  <FaArrowLeft />
                 </button>
                 <button
                   type="button"
-                  className="btn btn-warning mt-2 "
+                  className="bg-green-500 text-white rounded-lg px-4 py-2"
+                  onClick={() => handleEditDoubleclick(index)}
+                >
+                  Pierwsze
+                </button>
+                <button
+                  type="button"
+                  className="bg-red-500 text-white rounded-lg px-4 py-2"
+                  onClick={() => handleEditDeletePhoto(index)}
+                >
+                  Usuń 🗑
+                </button>
+                <button
+                  type="button"
+                  className="bg-yellow-500 text-white rounded-lg px-4 py-2"
                   onClick={(e) => {
                     e.preventDefault();
                     handleEditSwap(index, 1);
                   }}
                 >
-                  W prawo &#10095;
+                  <FaArrowRight />
                 </button>
               </div>
-              <button
-                type="button"
-                className="btn btn-danger mt-2 "
-                onClick={() => handleEditDeletePhoto(index)}
-              >
-                Usuń 🗑
-              </button>
             </div>
           ))}
       </div>
@@ -690,32 +686,39 @@ function EditOffer() {
   );
 
   return (
-    <div className="container mt-5">
-      <h1>Add or edit offer</h1>
-      <form onSubmit={handleSubmit}>
-        {/* photos zdjecia*/}
-        {/* {id === undefined && photosComponent} */}
-        {id !== undefined && photosEditComponent}
-        {/* data */}
-        <input
-          required
-          className={bootstrapStyle.input}
-          placeholder="Tytuł"
-          type="date"
-          id="date_of_creation"
-          name="date_of_creation"
-          value={data.date_of_creation}
-          onChange={handleInputChange}
-        />
-        {/* tytuł */}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="title" className={bootstrapStyle.label}>
+    <div className="container mx-auto mt-10">
+      <h1 className="text-2xl font-bold mb-6 text-center">Edycja Oferty</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md"
+      >
+        {/* Photos Section */}
+        <div className="flex justify-center mb-4">
+          {id === undefined && photosComponent}
+          {id !== undefined && photosEditComponent}
+        </div>
+
+        {/* Date of Creation */}
+        <div className="mb-4">
+          <input
+            required
+            className="border rounded-lg p-2 w-full"
+            type="date"
+            id="date_of_creation"
+            name="date_of_creation"
+            value={data.date_of_creation}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        {/* Title */}
+        <div className="mb-4">
+          <label htmlFor="title" className="block text-sm font-medium mb-1">
             Tytuł:
           </label>
           <input
             required
-            className={bootstrapStyle.input}
-            placeholder="Tytuł"
+            className="border rounded-lg p-2 w-full"
             type="text"
             id="title"
             name="title"
@@ -724,19 +727,18 @@ function EditOffer() {
           />
         </div>
 
-        {/*  cena */}
-        <div className={bootstrapStyle.formDivRow}>
-          <div className={bootstrapStyle.formDivColLarge}>
-            <label htmlFor="price" className={bootstrapStyle.label}>
+        {/* Price Section */}
+        <div className="mb-4 flex space-x-4">
+          <div className="flex-1">
+            <label htmlFor="price" className="block text-sm font-medium mb-1">
               Cena:{" "}
               {!getBoolIsSellOfferType(data.offer_type) &&
-                Math.round(data.price / data.size)}{" "}
-              {!getBoolIsSellOfferType(data.offer_type) &&
-                `${data.price_unit}/${data.size_unit}`}
+                `${Math.round(data.price / data.size)} ${data.price_unit}/${
+                  data.size_unit
+                }`}
             </label>
             <input
-              className={bootstrapStyle.input}
-              placeholder="Cena"
+              className="border rounded-lg p-2 w-full"
               type="number"
               id="price"
               name="price"
@@ -744,14 +746,15 @@ function EditOffer() {
               onChange={handleInputChange}
             />
           </div>
-          <div className={bootstrapStyle.formDivColSmall}>
-            <label htmlFor="price_unit" className={bootstrapStyle.label}>
+          <div className="flex-initial">
+            <label
+              htmlFor="price_unit"
+              className="block text-sm font-medium mb-1"
+            >
               Waluta:
             </label>
             <select
-              className={bootstrapStyle.input}
-              placeholder="Waluta"
-              type="text"
+              className="border rounded-lg p-2"
               id="price_unit"
               name="price_unit"
               value={data.price_unit}
@@ -763,12 +766,15 @@ function EditOffer() {
             </select>
           </div>
         </div>
-        {/* Opis */}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="description" className={bootstrapStyle.label}>
+
+        {/* Description */}
+        <div className="mb-4">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium mb-1"
+          >
             Opis:
           </label>
-
           {isLoaded && (
             <DescEditor
               defaultValue={data.description}
@@ -776,15 +782,15 @@ function EditOffer() {
             />
           )}
         </div>
-        {/*  Powierzchnia  */}
-        <div className={bootstrapStyle.formDivRow}>
-          <div className={bootstrapStyle.formDivColLarge}>
-            <label htmlFor="size" className={bootstrapStyle.label}>
+
+        {/* Size Section */}
+        <div className="mb-4 flex space-x-4">
+          <div className="flex-1">
+            <label htmlFor="size" className="block text-sm font-medium mb-1">
               Powierzchnia:
             </label>
             <input
-              className={bootstrapStyle.input}
-              placeholder="powierzchnia"
+              className="border rounded-lg p-2 w-full"
               type="number"
               id="size"
               name="size"
@@ -792,14 +798,15 @@ function EditOffer() {
               onChange={handleInputChange}
             />
           </div>
-          <div className={bootstrapStyle.formDivColSmall}>
-            <label htmlFor="size_unit" className={bootstrapStyle.label}>
+          <div className="flex-initial">
+            <label
+              htmlFor="size_unit"
+              className="block text-sm font-medium mb-1"
+            >
               Jednostka:
             </label>
             <select
-              className={bootstrapStyle.input}
-              placeholder="waluta"
-              type="text"
+              className="border rounded-lg p-2"
               id="size_unit"
               name="size_unit"
               value={data.size_unit}
@@ -812,15 +819,13 @@ function EditOffer() {
           </div>
         </div>
 
-        {/*kategoria*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="category" className={bootstrapStyle.label}>
+        {/* Category */}
+        <div className="mb-4">
+          <label htmlFor="category" className="block text-sm font-medium mb-1">
             Kategoria:
           </label>
           <select
-            className={bootstrapStyle.input}
-            placeholder="Kategoria"
-            type="text"
+            className="border rounded-lg p-2 w-full"
             id="category"
             name="category"
             value={data.category}
@@ -833,15 +838,16 @@ function EditOffer() {
           </select>
         </div>
 
-        {/*polecaj*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="is_recommended" className={bootstrapStyle.label}>
+        {/* Recommended */}
+        <div className="mb-4">
+          <label
+            htmlFor="is_recommended"
+            className="block text-sm font-medium mb-1"
+          >
             Polecaj:
           </label>
           <select
-            className={bootstrapStyle.input}
-            placeholder=""
-            type="text"
+            className="border rounded-lg p-2 w-full"
             id="is_recommended"
             name="is_recommended"
             value={data.is_recommended}
@@ -852,15 +858,13 @@ function EditOffer() {
           </select>
         </div>
 
-        {/*status*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="status" className={bootstrapStyle.label}>
+        {/* Status */}
+        <div className="mb-4">
+          <label htmlFor="status" className="block text-sm font-medium mb-1">
             Status:
           </label>
           <select
-            className={bootstrapStyle.input}
-            placeholder=""
-            type="text"
+            className="border rounded-lg p-2 w-full"
             id="status"
             name="status"
             value={data.status}
@@ -873,15 +877,16 @@ function EditOffer() {
           </select>
         </div>
 
-        {/*typ oferty czy wynajem czy sprzedaż*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="offer_type" className={bootstrapStyle.label}>
+        {/* Offer Type */}
+        <div className="mb-4">
+          <label
+            htmlFor="offer_type"
+            className="block text-sm font-medium mb-1"
+          >
             Typ oferty:
           </label>
           <select
-            className={bootstrapStyle.input}
-            placeholder=""
-            type="text"
+            className="border rounded-lg p-2 w-full"
             id="offer_type"
             name="offer_type"
             value={data.offer_type}
@@ -892,14 +897,13 @@ function EditOffer() {
           </select>
         </div>
 
-        {/* lokalizacja*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="location" className={bootstrapStyle.label}>
+        {/* Location */}
+        <div className="mb-4">
+          <label htmlFor="location" className="block text-sm font-medium mb-1">
             Mapa iframe:
           </label>
           <input
-            className={bootstrapStyle.input}
-            placeholder="iframe"
+            className="border rounded-lg p-2 w-full"
             type="text"
             id="location"
             name="location"
@@ -908,14 +912,16 @@ function EditOffer() {
           />
         </div>
 
-        {/* lokalizacja tekst*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="location_text" className={bootstrapStyle.label}>
+        {/* Location Text */}
+        <div className="mb-4">
+          <label
+            htmlFor="location_text"
+            className="block text-sm font-medium mb-1"
+          >
             Lokalizacja tekst:
           </label>
           <input
-            className={bootstrapStyle.input}
-            placeholder="Lokalizacja"
+            className="border rounded-lg p-2 w-full"
             type="text"
             id="location_text"
             name="location_text"
@@ -924,14 +930,13 @@ function EditOffer() {
           />
         </div>
 
-        {/* url video*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="video" className={bootstrapStyle.label}>
+        {/* Video URL */}
+        <div className="mb-4">
+          <label htmlFor="video" className="block text-sm font-medium mb-1">
             Iframe video:
           </label>
           <input
-            className={bootstrapStyle.input}
-            placeholder="iframe video"
+            className="border rounded-lg p-2 w-full"
             type="text"
             id="video"
             name="video"
@@ -940,50 +945,53 @@ function EditOffer() {
           />
         </div>
 
-        {/* parametry*/}
-        <div className={bootstrapStyle.formDiv}>
-          <label htmlFor="" className={bootstrapStyle.label}>
-            Parametry:
-          </label>
-
+        {/* Parameters */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">Parametry:</label>
           {parametersComponent}
 
-          <div className={bootstrapStyle.formDivRow}>
-            <div className={bootstrapStyle.formDivColLarge}>
-              <input
-                className={bootstrapStyle.input + " mb-2"}
-                id="newParameterKey"
-              ></input>
-            </div>
-            <div className={bootstrapStyle.formDivColSmall}>
-              <button
-                className={"btn btn-success w-100 "}
-                onClick={(e) => {
-                  addParameterField(
-                    document.getElementById("newParameterKey").value,
-                    e
-                  );
-                  document.getElementById("newParameterKey").value = "";
-                }}
-                type="button"
-              >
-                ➕
-              </button>
-            </div>
+          <div className="flex space-x-2 mb-4">
+            <input
+              className="border rounded-lg p-2 flex-1"
+              id="newParameterKey"
+              placeholder="New Parameter Key"
+            />
+            <button
+              className="bg-green-600 text-white rounded-lg px-4"
+              onClick={(e) => {
+                addParameterField(
+                  document.getElementById("newParameterKey").value,
+                  e
+                );
+                document.getElementById("newParameterKey").value = "";
+              }}
+              type="button"
+            >
+              <FaPlus />
+            </button>
           </div>
         </div>
 
-        <div className={bootstrapStyle.form}>
-          <button className={"btn btn-success w-100 mb-4"} type="submit">
-            {id === undefined ? "Dodaj oferte 💾" : "Edytuj oferte ✏"}
+        <div className="mb-4">
+          <button
+            className="bg-green-600 text-white rounded-lg p-2 w-full"
+            type="submit"
+          >
+            {id === undefined ? (
+              <div>Dodaj oferte</div>
+            ) : (
+              <div>Edytuj oferte</div>
+            )}
           </button>
         </div>
+
+        {/* Error Message */}
         {!isUploaded && (
-          <p>
-            <div class="alert alert-danger" role="alert">
+          <div className="text-red-500">
+            <div className="alert alert-danger" role="alert">
               Nie dodano oferty / Błąd przy dodawaniu
             </div>
-          </p>
+          </div>
         )}
       </form>
     </div>

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { baseApiUrl } from "../Variables";
+import BriefContact from "../Contact/BriefContact";
 
 function Offers({ rent, mielec }) {
   let { category } = useParams();
@@ -111,8 +112,8 @@ function Offers({ rent, mielec }) {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="container mx-auto" style={{ minHeight: "75vh" }}>
-          <h2 className="text-center text-2xl font-semibold mb-4">
+        <div className="max-w-7xl mx-auto" style={{ minHeight: "75vh" }}>
+          <h2 className="ml-4 text-2xl font-semibold mb-4">
             {category.charAt(0).toUpperCase()}
             {category.slice(1)} na{" "}
             {category === "zrealizowane"
@@ -121,64 +122,106 @@ function Offers({ rent, mielec }) {
               ? "wynajem"
               : "sprzedaż"}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-6 justify-items-center mx-auto px-4 max-w-4xl">
-            {[...data, ...dataRest].map((item, index) => (
-              <Link
-                key={index + 999}
-                to={`/${category}/${item.id}-${item.title
-                  .replace("/", "")
-                  .split(" ")
-                  .join("-")}`}
-                className="flex flex-col md:flex-row bg-white rounded-lg hover:bg-gray-50 transition ease-in-out duration-300 w-full
+          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-6 gap-6 justify-items-center mx-auto px-4 max-w-7xl">
+            <div className="col-span-1 lg:col-span-4 grid grid-cols-1 gap-4">
+              {[...data, ...dataRest].map((item, index) => (
+                <div>
+                  <Link
+                    key={index + 999}
+                    to={`/${category}/${item.id}-${item.title
+                      .replace("/", "")
+                      .split(" ")
+                      .join("-")}`}
+                    className="grid grid-cols-1 sm:grid-cols-7 bg-white rounded-lg hover:bg-gray-50 transition ease-in-out duration-300 w-full
                  shadow shadow-gray-300 hover:shadow-xl "
-              >
-                <img
-                  className="object-cover w-full h-48 md:h-56 md:w-64 rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
-                  src={`${baseApiUrl}/${item.thumbnail}`}
-                  alt={item.title}
-                />
-                <div className="flex flex-col justify-between p-4 leading-normal">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
-                  </h5>
-                  <p className="mb-3 font-normal text-gray-700">
-                    {item.location_text}
-                    <br />
-                    Powierzchnia: {item.size} {item.size_unit}
-                    <br />
-                    Cena:{" "}
-                    <b>
-                      {item.price_text} {item.price_unit}
-                    </b>
-                    <br />
-                    Cena za {item.size_unit}:{" "}
-                    {Math.floor(item.price / item.size)} {item.price_unit}/
-                    {item.size_unit}
-                    <br />
-                    {categoryId === 0 && "Piętro" in item.parameters && (
-                      <>
-                        Piętro: {item.parameters["Piętro"]}
+                  >
+                    <div className="object-cover text-sm col-span-2 h-64 w-full rounded-t-lg md:rounded-l-lg md:rounded-tr-none relative">
+                      {/* Image */}
+                      <img
+                        loading="lazy"
+                        className="object-cover col-span-2 h-64 w-full rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
+                        src={`${baseApiUrl}/${item.thumbnail}`}
+                        alt={item.title}
+                      />
+
+                      {/* REZERWACJA */}
+                      <div
+                        className={`absolute top-2 left-2 w-fit-content rounded text-center p-1 bg-red-600 text-white ${
+                          item.status === 1 ? "" : "hidden"
+                        }`}
+                      >
+                        REZERWACJA
+                      </div>
+
+                      {/* SPRZEDANE W OSTATNIM CZASIE */}
+                      <div
+                        className={`absolute top-2 left-2  w-fit-content rounded text-center p-1 bg-green-600 text-white ${
+                          item.status === 3 && item.offer_type === 0
+                            ? ""
+                            : "hidden"
+                        }`}
+                      >
+                        SPRZEDANE
+                      </div>
+
+                      {/* WYNAJĘTE W OSTATNIM CZASIE */}
+                      <div
+                        className={`absolute top-2 left-2  w-fit-content rounded text-center p-1 bg-green-600 text-white ${
+                          item.status === 3 && item.offer_type === 1
+                            ? ""
+                            : "hidden"
+                        }`}
+                      >
+                        WYNAJĘTE
+                      </div>
+                    </div>
+                    <div className="flex flex-col col-span-5 justify-start p-4 ">
+                      <h5 className="text-xl md:text-2xl font-bold text-pretty tracking-tight text-gray-900 mb-5">
+                        {item.title}
+                      </h5>
+                      <p className="font-normal text-gray-700">
+                        {item.location_text}
                         <br />
-                      </>
-                    )}
-                    {categoryId === 2 && "Media" in item.parameters && (
-                      <>
-                        Media: {item.parameters["Media"]}
+                        Powierzchnia: {item.size} {item.size_unit}
                         <br />
-                      </>
-                    )}
-                    {(categoryId === 0 || (categoryId === 3 && rent)) &&
-                      rent &&
-                      "Opłaty" in item.parameters && (
-                        <>
-                          Opłaty: {item.parameters["Opłaty"]}
-                          <br />
-                        </>
-                      )}
-                  </p>
+                        Cena:{" "}
+                        <b>
+                          {item.price_text} {item.price_unit}
+                        </b>
+                        <br />
+                        Cena za {item.size_unit}:{" "}
+                        {Math.floor(item.price / item.size)} {item.price_unit}/
+                        {item.size_unit}
+                        <br />
+                        {categoryId === 0 && "Piętro" in item.parameters && (
+                          <>
+                            Piętro: {item.parameters["Piętro"]}
+                            <br />
+                          </>
+                        )}
+                        {categoryId === 2 && "Media" in item.parameters && (
+                          <>
+                            Media: {item.parameters["Media"]}
+                            <br />
+                          </>
+                        )}
+                        {(categoryId === 0 || (categoryId === 3 && rent)) &&
+                          rent &&
+                          "Opłaty" in item.parameters && (
+                            <>
+                              Opłaty: {item.parameters["Opłaty"]}
+                              <br />
+                            </>
+                          )}
+                      </p>
+                    </div>
+                  </Link>
                 </div>
-              </Link>
-            ))}
+              ))}
+            </div>
+            <div className="col-span-1 lg:col-span-2">
+              <BriefContact />
+            </div>
           </div>
         </div>
       )}

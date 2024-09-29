@@ -10,15 +10,16 @@ function NavbarComponent() {
   }, []);
 
   return (
-    <nav className="bg-white border-gray-200">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className="bg-white border-gray-200 ">
+      <div className="max-w-screen-2xl inline-block flex flex-wrap items-center justify-between align-center mx-auto p-4">
         <a href="/" className="flex items-center space-x-3">
           <img
             src={`${baseApiUrl}/static/logo.png`}
-            className="h-8"
-            alt="Flowbite Logo"
+            className="h-11"
+            alt="CentrumMielec Logo"
           />
         </a>
+
         <button
           data-collapse-toggle="navbar-dropdown"
           type="button"
@@ -43,7 +44,10 @@ function NavbarComponent() {
             />
           </svg>
         </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+        <div
+          className="hidden w-full md:block md:w-auto mt-3"
+          id="navbar-dropdown"
+        >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg bg-white md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
             <li>
               <a
@@ -92,7 +96,7 @@ function NavbarComponent() {
                 className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
               >
                 <ul
-                  className="py-2 text-sm text-gray-700"
+                  className="py-2 mx-auto text-sm text-gray-700"
                   aria-labelledby="dropdownLargeButton"
                 >
                   <li>
@@ -144,7 +148,7 @@ function NavbarComponent() {
                 className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
               >
                 <ul
-                  className="py-2 text-sm text-gray-700"
+                  className="py-2 mx-auto text-sm text-gray-700"
                   aria-labelledby="dropdownLargeButton"
                 >
                   <li>

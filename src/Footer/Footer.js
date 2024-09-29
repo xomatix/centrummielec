@@ -4,12 +4,12 @@ function Footer() {
   return (
     <div>
       <div
-        className="flex justify-center items-center bg-cover bg-bottom"
+        className="flex justify-center items-center bg-repeat-x bg-bottom"
         style={{
           backgroundImage:
             "url('https://centrummielec.pl/api/static/footer.png')",
           minHeight: 200,
-          backgroundRepeat: "repeat-x",
+          // backgroundRepeat: "repeat-x",
         }}
       >
         <div className="flex flex-col items-center p-4 mt-2">

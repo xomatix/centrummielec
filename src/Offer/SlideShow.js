@@ -1,99 +1,133 @@
-import React, { useEffect, useState } from 'react'
-import { baseApiUrl } from '../Variables'
+import React, { useEffect, useState } from "react";
+import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
+import { baseApiUrl } from "../Variables";
 
-function SlideShow({ photosUrls }) {
-    const [photos, setPhotos] = useState([])
-    const [mainPhoto, setMainPhoto] = useState(0)
-    const [mainPhotoOpen, setMainPhotoOpen] = useState(false)
+const SlideShow = ({ photosUrlsBase }) => {
+  const [mainPhotoIndex, setMainPhotoIndex] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [photosUrls, setPhotosUrls] = useState([]);
 
-    useEffect(() => {
-        setPhotos([...photosUrls])
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
 
-        // window.addEventListener('keyup', (e) => {
-        //     e.preventDefault()
-        //     switch (e.key) {
-        //         case 'ArrowRight':
-        //             handleButtonClick(e, 1)
-        //             break;
-        //         case 'ArrowLeft':
-        //             handleButtonClick(e, -1)
-        //             break;
-
-        //         default:
-        //             break;
-        //     }
-        // })
-
-    }, [photosUrls])
-
-    const handleButtonClick = (e, step) => {
-        e.preventDefault()
-        if (step === 1) {
-            setMainPhoto((mainPhoto + 1) % photos.length)
-        } else {
-            setMainPhoto(mainPhoto === 0 ? photos.length - 1 : mainPhoto - 1)
-        }
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape" && isFullscreen) {
+      setIsFullscreen(false);
+    } else if (e.key === "ArrowRight") {
+      setMainPhotoIndex((prev) => (prev + 1) % photosUrls.length);
+    } else if (e.key === "ArrowLeft") {
+      setMainPhotoIndex(
+        (prev) => (prev - 1 + photosUrls.length) % photosUrls.length
+      );
     }
+  };
 
-    const handlePhotoClick = (e, index) => {
-        e.preventDefault()
-        setMainPhoto(index);
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [photosUrls]);
+
+  useEffect(() => {
+    let arr = [];
+    for (let index = 0; index < photosUrlsBase.length; index++) {
+      arr.push(baseApiUrl + "/" + photosUrlsBase[index]);
     }
+    setPhotosUrls(arr);
+  }, [photosUrlsBase]);
 
-    const closeMainPhoto = (e) => {
-        e.preventDefault()
-        setMainPhotoOpen(false);
-    }
-
-    return (
-        <div className="overflow-hidden">
-            <div style={{ position: 'relative' , zIndex: 1}}>
-                {photos.map((item, index) =>
-                    <div key={index + 100} className={` ${mainPhoto === index ? 'd-block' : 'd-none'}`} >
-                        <div className={`bg-dark ${mainPhotoOpen === true ? 'd-block' : 'd-none'}`}
-                            style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0 }}>
-                            <img loading='lazy' src={`${baseApiUrl}/${item}`} height={'100%'} width={'100%'}
-                                style={{ objectFit: 'contain', position: 'relative' }} alt={`Zdjęcie numer ${index}`} />
-
-                            <button type='button' className='btn bg-secondary bg-opacity-25 text-light '
-                                style={{ position: 'absolute', right: 0, top: 0, fontSize: '2.5rem' }}
-                                onClick={e => { closeMainPhoto(e) }}>&#10005;</button>
-
-                            <div className="p-2 m-3 text-light bg-dark bg-opacity-75" style={{ position: 'absolute', right: 0, bottom: 0 }} >{index + 1} / {photos.length}</div>
-                            <button className="prev btn text-light bg-secondary bg-opacity-25" onClick={e => handleButtonClick(e, -1)}
-                                style={{ position: 'absolute', left: 5, top: '50%', fontSize: '2.5rem', transform: 'translate(0,-50%)' }}>&#10094;</button>
-                            <button className="next btn text-light bg-secondary bg-opacity-25" onClick={e => handleButtonClick(e, 1)}
-                                style={{ position: 'absolute', right: 5, top: '50%', fontSize: '2.5rem', transform: 'translate(0,-50%)' }} >&#10095;</button>
-                        </div>
-
-                        <div className={` ${mainPhotoOpen === true ? 'd-none' : 'd-block'}`} >
-                            <div onClick={e => { e.preventDefault(); setMainPhotoOpen(true);}}>
-                                <img loading='lazy' src={`${baseApiUrl}/${item}`} height={'600px'} className='d-none d-md-block' style={{ width: '100%', objectFit: 'cover' }} alt={`Zdjęcie numer ${index}`} />
-                                <img loading='lazy' src={`${baseApiUrl}/${item}`} height={'300px'} className='d-block d-md-none ' style={{ width: '100%', objectFit: 'cover' }} alt={`Zdjęcie numer ${index}`} />
-                            </div>
-                            <div className="p-2 m-3 text-light bg-dark bg-opacity-75" style={{ position: 'absolute', right: 0, bottom: 0 }} >{index + 1} / {photos.length}</div>
-
-                            <button className="prev btn text-light bg-dark bg-opacity-25 " onClick={e => handleButtonClick(e, -1)}
-                                style={{ position: 'absolute', left: 5, top: '50%', fontSize: '2.5rem', transform: 'translate(0,-50%)' }}>&#10094;</button>
-                            <button className="next btn text-light bg-dark bg-opacity-25" onClick={e => handleButtonClick(e, 1)}
-                                style={{ position: 'absolute', right: 5, top: '50%', fontSize: '2.5rem', transform: 'translate(0,-50%)' }} >&#10095;</button>
-                        </div>
-
-
-                    </div>
-                )}
-            </div>
-
-            <div className='d-flex overflow-auto mt-2'>
-                {photos.map((item, index) =>
-                    <div key={index} className='flex-column me-2'>
-                        <img src={`${baseApiUrl}/${item}`} height='98px' alt={`Zdjęcie numer ${index}`} onClick={(e) => handlePhotoClick(e, index)} />
-                    </div>
-                )}
-            </div>
-
+  return (
+    <div className="relative">
+      {/* Fullscreen View */}
+      {isFullscreen && (
+        <div className="fixed inset-0 bg-black bg-opacity-85 z-50 flex items-center justify-center">
+          <img
+            src={photosUrls[mainPhotoIndex]}
+            className="max-h-full max-w-full object-contain"
+            alt={`Image ${mainPhotoIndex + 1}`}
+          />
+          <button
+            onClick={toggleFullscreen}
+            className="absolute top-4 right-4 text-white text-3xl"
+          >
+            <FaTimes />
+          </button>
+          <button
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-4 rounded-md"
+            onClick={() =>
+              setMainPhotoIndex(
+                (mainPhotoIndex - 1 + photosUrls.length) % photosUrls.length
+              )
+            }
+          >
+            <FaArrowLeft />
+          </button>
+          <button
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-4 rounded-md"
+            onClick={() =>
+              setMainPhotoIndex((mainPhotoIndex + 1) % photosUrls.length)
+            }
+          >
+            <FaArrowRight />
+          </button>
         </div>
-    )
-}
+      )}
 
-export default SlideShow
+      {/* Main Image */}
+      <div className="relative">
+        <img
+          src={photosUrls[mainPhotoIndex]}
+          className="w-full h-[60vh] object-cover cursor-pointer rounded shadow shadow-lg"
+          alt={`Image ${mainPhotoIndex + 1}`}
+          onClick={toggleFullscreen}
+        />
+        <button
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-4 rounded opacity-70"
+          onClick={() =>
+            setMainPhotoIndex(
+              (mainPhotoIndex - 1 + photosUrls.length) % photosUrls.length
+            )
+          }
+        >
+          <FaArrowLeft />
+        </button>
+        <button
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-4 rounded opacity-70"
+          onClick={() =>
+            setMainPhotoIndex((mainPhotoIndex + 1) % photosUrls.length)
+          }
+        >
+          <FaArrowRight />
+        </button>
+        <div className="flex justify-center mt-2">
+          <span className="text-gray-700">
+            {mainPhotoIndex + 1} / {photosUrls.length}
+          </span>
+        </div>
+      </div>
+
+      {/* Thumbnails */}
+      <div className="flex overflow-auto mt-2 ">
+        {photosUrls.map((url, index) => (
+          <div key={index} className="flex flex-col items-center mx-2 mb-2 ">
+            <img
+              src={url}
+              className={`w-20 min-w-[20vw] md:min-w-20 h-20 object-cover cursor-pointer rounded shadow 
+                  ${
+                    mainPhotoIndex == index
+                      ? "border border-gray-800 border-4"
+                      : ""
+                  }`}
+              alt={`Thumbnail ${index + 1}`}
+              onClick={() => setMainPhotoIndex(index)}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default SlideShow;

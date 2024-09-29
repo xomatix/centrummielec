@@ -47,6 +47,134 @@
   }
 }
 
-.navbar-dark {
-  background-color: var(--color-gray) !important;
+
+
+  .parent-div  div {
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.parent-div  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #272727;
+}
+
+.parent-div  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    color: #313131;
+}
+
+.parent-div  h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: #3f3f3f;
+}
+
+.parent-div  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #424242;
+}
+
+.parent-div  h5 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #4e4e4e;
+}
+
+.parent-div h6 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #535353;
+}
+
+.parent-div p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #272727;
+}
+
+.parent-div strong {
+    font-weight: bold;
+    color: #000;
+}
+
+.parent-div em {
+    font-style: italic;
+    color: #272727;
+}
+
+.parent-div u {
+    text-decoration: underline;
+}
+
+.parent-div s {
+    text-decoration: line-through;
+}
+
+.parent-div sup {
+    vertical-align: super;
+    font-size: 0.8em;
+}
+
+.parent-div ol, ul {
+    margin-left: 20px;
+    margin-bottom: 1rem;
+    
+}
+
+.parent-div ol {
+  list-style: decimal;
+}
+
+.parent-div ul {
+  list-style: disc;
+}
+
+.parent-div li {
+    margin-bottom: 0.5rem;
+}
+
+.parent-div a {
+  @apply text-green-500 hover:underline; /* Styles for links */
+}
+
+.parent-div blockquote {
+    margin: 1rem 0;
+    padding: 10px 15px;
+    border-left: 4px solid #ddd;
+    background: #f9f9f9;
+    color: #666;
+}
+
+.parent-div pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.parent-div .ql-align-center {
+    text-align: center;
+}
+
+.parent-div .ql-align-justify {
+    text-align: justify;
+}
+
+.parent-div .ql-indent-1 {
+    margin-left: 20px;
+}
+
+.parent-div .ql-indent-2 {
+    margin-left: 40px;
+}
+
+.parent-div .ql-indent-3 {
+    margin-left: 60px;
 }
