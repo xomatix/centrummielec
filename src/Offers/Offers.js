@@ -156,7 +156,8 @@ function Offers({ rent, mielec }) {
                       {/* SPRZEDANE W OSTATNIM CZASIE */}
                       <div
                         className={`absolute top-2 left-2  w-fit-content rounded text-center p-1 bg-green-600 text-white ${
-                          item.status === 3 && item.offer_type === 0
+                          (item.status === 3 || item.status === 2) &&
+                          item.offer_type === 0
                             ? ""
                             : "hidden"
                         }`}
@@ -167,7 +168,8 @@ function Offers({ rent, mielec }) {
                       {/* WYNAJĘTE W OSTATNIM CZASIE */}
                       <div
                         className={`absolute top-2 left-2  w-fit-content rounded text-center p-1 bg-green-600 text-white ${
-                          item.status === 3 && item.offer_type === 1
+                          (item.status === 3 || item.status === 2) &&
+                          item.offer_type === 1
                             ? ""
                             : "hidden"
                         }`}

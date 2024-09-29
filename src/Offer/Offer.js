@@ -166,6 +166,22 @@ function Offer() {
               >
                 WYNAJĘTE W OSTATNIM CZASIE
               </div>
+              <div
+                className={`rounded text-center p-2 bg-green-600 text-normal text-white ${
+                  data.status === 2 && data.offer_type === 0 ? "" : "hidden"
+                }`}
+                width="100%"
+              >
+                SRZEDANE
+              </div>
+              <div
+                className={`rounded text-center p-2 bg-green-600 text-normal text-white ${
+                  data.status === 2 && data.offer_type === 1 ? "" : "hidden"
+                }`}
+                width="100%"
+              >
+                WYNAJĘTE
+              </div>
             </div>
 
             {/* Tytul */}

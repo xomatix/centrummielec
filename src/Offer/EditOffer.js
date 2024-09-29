@@ -195,7 +195,9 @@ function EditOffer() {
             ? "Aktualne"
             : reqData.status === 1
             ? "Rezerwacja"
-            : "Sprzedane",
+            : reqData.status === 2
+            ? "Sprzedane"
+            : "Zrealizowane",
         offer_type: reqData.offer_type ? "Wynajem" : "Sprzedaz",
         location: reqData.location,
         location_text: reqData.location_text,
@@ -862,6 +864,10 @@ function EditOffer() {
         <div className="mb-4">
           <label htmlFor="status" className="block text-sm font-medium mb-1">
             Status:
+          </label>
+          <label htmlFor="status" className="block text-sm font-medium mb-1">
+            Zrealizowane będzie wciąż pokazywane na standardowej liście a
+            sprzedane będzie przeniesione do listy na dole strony głównej.
           </label>
           <select
             className="border rounded-lg p-2 w-full"
