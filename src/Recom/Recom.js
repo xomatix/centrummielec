@@ -71,7 +71,7 @@ function Recom() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg"></div>
+            <div className="absolute inset-0 h-[30%] top-[70%] bg-gradient-to-t from-black/40 via-black/40 to-transparent rounded-lg"></div>
 
             <div className="absolute bottom-0 left-0 p-4 text-white">
               <div className="font-bold text-lg">

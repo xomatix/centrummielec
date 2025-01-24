@@ -1,31 +1,32 @@
-import React, { useEffect } from "react";
-import "flowbite";
+import React, { useEffect, useState } from "react";
 import { baseApiUrl } from "../Variables";
+import { Link } from "react-router-dom";
 
 function NavbarComponent() {
-  useEffect(() => {
-    import("flowbite").then(({ initDropdowns }) => {
-      initDropdowns();
-    });
-  }, []);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const navbarLinkBaseClass =
+    "block py-2 px-2 mx-1 bg-white hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-green-600 xl:px-4 lg:border-t-4 lg:border-0";
 
   return (
     <nav className="bg-white border-gray-200 ">
       <div className="max-w-screen-2xl inline-block flex flex-wrap items-center justify-between align-center mx-auto p-4">
-        <a href="/" className="flex items-center space-x-3">
-          <img
-            src={`${baseApiUrl}/static/logo.png`}
-            className="h-11"
-            alt="CentrumMielec Logo"
-          />
-        </a>
+        <Link to="/">
+          <div className="flex items-center space-x-3 left-[50%]">
+            <img
+              src={`${baseApiUrl}/static/logo.png`}
+              className="h-[4.75rem]"
+              alt="CentrumMielec Logo"
+            />
+          </div>
+        </Link>
 
         <button
           data-collapse-toggle="navbar-dropdown"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
           aria-controls="navbar-dropdown"
-          aria-expanded="false"
+          onClick={() => setShowMenu(!showMenu)}
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -45,35 +46,35 @@ function NavbarComponent() {
           </svg>
         </button>
         <div
-          className="hidden w-full md:block md:w-auto mt-3"
+          className={`${!showMenu && "hidden"} w-full lg:block lg:w-auto mt-3`}
           id="navbar-dropdown"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg bg-white md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <ul className="flex flex-col text-lg font-semibold p-4 lg:p-0 mt-4 rounded-lg bg-white w-100 lg:flex-row lg:mt-0 lg:border-0 lg:bg-white">
             <li>
               <a
                 href="/mieszkania"
-                className="block py-2 px-3 bg-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600 md:p-0"
+                className={`${navbarLinkBaseClass} border-t-[#77C8A6] `}
                 aria-current="page"
               >
-                Mieszkania
+                MIESZKANIA
               </a>
             </li>
             <li>
               <a
                 href="/domy"
-                className="block py-2 px-3 bg-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0"
+                className={`${navbarLinkBaseClass} border-t-[#BAB7B8] `}
                 aria-current="page"
               >
-                Domy
+                DOMY
               </a>
             </li>
             <li>
               <button
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar"
-                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0 md:w-auto"
+                className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#D6E037]`}
               >
-                Działki{" "}
+                DZIAŁKI{" "}
                 <svg
                   className="w-2.5 h-2.5 ms-2.5"
                   aria-hidden="true"
@@ -104,7 +105,7 @@ function NavbarComponent() {
                       href="/dzialki/mielec"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
-                      Działki w Mielcu
+                      DZIAŁKI w Mielcu
                     </a>
                   </li>
                   <li>
@@ -112,7 +113,7 @@ function NavbarComponent() {
                       href="/dzialki/poza-mielcem"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
-                      Działki poza Mielcem
+                      DZIAŁKI poza Mielcem
                     </a>
                   </li>
                 </ul>
@@ -123,9 +124,9 @@ function NavbarComponent() {
               <button
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar2"
-                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0 md:w-auto"
+                className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#CBE7CF]`}
               >
-                Lokale{" "}
+                LOKALE{" "}
                 <svg
                   className="w-2.5 h-2.5 ms-2.5"
                   aria-hidden="true"
@@ -156,7 +157,7 @@ function NavbarComponent() {
                       href="/lokale"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
-                      Lokale na sprzedaż
+                      LOKALE na sprzedaż
                     </a>
                   </li>
                   <li>
@@ -164,7 +165,7 @@ function NavbarComponent() {
                       href="/lokale/wynajem"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
-                      Lokale na wynajem
+                      LOKALE na wynajem
                     </a>
                   </li>
                 </ul>
@@ -173,35 +174,29 @@ function NavbarComponent() {
             <li>
               <a
                 href="/mieszkania/wynajem"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0"
+                className={`${navbarLinkBaseClass} border-t-[#6D6E6E]`}
               >
-                Wynajem Mieszkań
+                WYNAJEM MIESZKAŃ
               </a>
             </li>
             <li>
               <a
                 href="/kontakt"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0"
+                className={`${navbarLinkBaseClass} border-t-[#E2E76F]`}
               >
-                Kontakt
+                KONTAKT
               </a>
             </li>
 
             {localStorage.getItem("token") !== null && (
               <>
                 <li>
-                  <a
-                    href="/dodaj"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0"
-                  >
+                  <a href="/dodaj" className={`${navbarLinkBaseClass}`}>
                     Dodaj oferte
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="/login"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-600  md:p-0"
-                  >
+                  <a href="/login" className={`${navbarLinkBaseClass}`}>
                     Logowanie
                   </a>
                 </li>

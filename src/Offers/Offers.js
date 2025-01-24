@@ -155,7 +155,7 @@ function Offers({ rent, mielec }) {
 
                       {/* SPRZEDANE W OSTATNIM CZASIE */}
                       <div
-                        className={`absolute top-2 left-2  w-fit-content rounded text-center p-1 bg-green-600 text-white ${
+                        className={`absolute top-2 left-2  w-fit-content rounded text-center p-1 bg-red-600 text-white ${
                           (item.status === 3 || item.status === 2) &&
                           item.offer_type === 0
                             ? ""
@@ -182,7 +182,7 @@ function Offers({ rent, mielec }) {
                         {item.title}
                       </h5>
                       <p className="font-normal text-gray-700">
-                        {item.location_text}
+                        <b>{item.location_text}</b>
                         <br />
                         Powierzchnia: {item.size} {item.size_unit}
                         <br />

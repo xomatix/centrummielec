@@ -195,7 +195,7 @@ function EditOffer() {
             ? "Aktualne"
             : reqData.status === 1
             ? "Rezerwacja"
-            : reqData.status === 2
+            : reqData.status === 3
             ? "Sprzedane"
             : "Zrealizowane",
         offer_type: reqData.offer_type ? "Wynajem" : "Sprzedaz",
@@ -291,10 +291,10 @@ function EditOffer() {
         status = 1;
         break;
       case "sprzedane":
-        status = 2;
+        status = 3;
         break;
       case "zrealizowane":
-        status = 3;
+        status = 2;
         break;
 
       default:

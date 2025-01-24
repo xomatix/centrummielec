@@ -3,6 +3,7 @@ import Recom from "../Recom/Recom";
 import CatSelect from "../CatSelect/CatSelect";
 import { Link } from "react-router-dom";
 import Advantages from "./Advantages";
+import Contact from "../Contact/Contact";
 
 function Home() {
   return (
@@ -17,6 +18,8 @@ function Home() {
           </button>
         </Link>
       </div>
+      {/* Contact */}
+      <Contact />
     </div>
   );
 }

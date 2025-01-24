@@ -17,25 +17,8 @@ function BriefContact() {
             informacji, prześlemy dodatkowe zdjęcia.
           </p>
 
-          <div className="mb-4">
-            <p className="font-semibold">Godziny otwarcia biura:</p>
-            <p>9:00 - 15:00 (poniedziałek - piątek)</p>
-          </div>
-
-          <div className="mb-4">
-            <p className="font-semibold">Praca w terenie:</p>
-            <p>
-              9:00 - 19:00 (poniedziałek - piątek)
-              <br />
-              9:00 - 13:00 (sobota)
-            </p>
-          </div>
-
           {/* Contact Details */}
           <p className="mb-2">
-            Adres: Ul. Szeroka 1 39-300 Mielec
-            <br />
-            <br />
             Monika Piotrowska:{" "}
             <a className="text-green-600 font-bold" href="tel:602575735">
               +48 602 57 57 35
@@ -54,6 +37,21 @@ function BriefContact() {
               biuro@centrummielec.pl
             </a>
           </p>
+
+          <div className="mb-4">
+            <p className="font-semibold">Godziny otwarcia biura:</p>
+            <p>9:00 - 15:00 (poniedziałek - piątek)</p>
+          </div>
+
+          <div className="mb-4">
+            <p className="font-semibold">Praca w terenie:</p>
+            <p>
+              9:00 - 19:00 (poniedziałek - piątek)
+              <br />
+              9:00 - 13:00 (sobota)
+            </p>
+            Adres: Ul. Szeroka 1 39-300 Mielec
+          </div>
         </div>
       </div>
     </div>
