@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 function NavbarComponent() {
   const [showMenu, setShowMenu] = useState(false);
+  const [showMenuDzialki, setShowMenuDzialki] = useState(false);
+  const [showMenuLokale, setShowMenuLokale] = useState(false);
 
   const navbarLinkBaseClass =
     "block py-2 px-2 mx-1 bg-white hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-green-600 xl:px-4 lg:border-t-4 lg:border-0";
@@ -68,10 +70,10 @@ function NavbarComponent() {
                 DOMY
               </a>
             </li>
-            <li>
+            <li className="lg:relative">
               <button
                 id="dropdownNavbarLink"
-                data-dropdown-toggle="dropdownNavbar"
+                onClick={() => setShowMenuDzialki(!showMenuDzialki)}
                 className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#D6E037]`}
               >
                 DZIAŁKI{" "}
@@ -94,7 +96,9 @@ function NavbarComponent() {
               {/* Dropdown menu */}
               <div
                 id="dropdownNavbar"
-                className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+                className={`z-10 font-semibold bg-white divide-y divide-gray-100 rounded-lg shadow w-44 lg:absolute ${
+                  showMenuDzialki ? "" : "hidden"
+                }`}
               >
                 <ul
                   className="py-2 mx-auto text-sm text-gray-700"
@@ -120,10 +124,10 @@ function NavbarComponent() {
               </div>
             </li>
 
-            <li>
+            <li className="lg:relative">
               <button
                 id="dropdownNavbarLink"
-                data-dropdown-toggle="dropdownNavbar2"
+                onClick={() => setShowMenuLokale(!showMenuLokale)}
                 className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#CBE7CF]`}
               >
                 LOKALE{" "}
@@ -146,7 +150,9 @@ function NavbarComponent() {
               {/* Dropdown menu */}
               <div
                 id="dropdownNavbar2"
-                className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+                className={`z-10  font-semibold bg-white divide-y divide-gray-100 rounded-lg shadow w-44 lg:absolute ${
+                  showMenuLokale ? "" : "hidden"
+                }`}
               >
                 <ul
                   className="py-2 mx-auto text-sm text-gray-700"
