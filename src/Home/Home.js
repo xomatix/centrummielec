@@ -4,11 +4,13 @@ import CatSelect from "../CatSelect/CatSelect";
 import { Link } from "react-router-dom";
 import Advantages from "./Advantages";
 import Contact from "../Contact/Contact";
+import Hintbar from "./Hintbar";
 
 function Home() {
   return (
     <div>
       <CatSelect />
+      <Hintbar />
       <Recom />
       <Advantages />
       <div className="text-center mx-auto my-5">
