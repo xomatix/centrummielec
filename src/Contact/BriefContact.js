@@ -1,9 +1,8 @@
 import React from "react";
-import { baseApiUrl } from "../Variables";
 
 function BriefContact() {
   return (
-    <div className="p-3 bg-white rounded shadow shadow-md">
+    <div className="p-3 bg-white rounded-lg shadow-md ">
       <div className="mb-4 font-bold text-3xl text-center">Kontakt</div>
       <hr className="my-2 border-green-600" />
 

@@ -136,12 +136,14 @@ function Offer() {
   return (
     <div className="w-full bg-gray-100 p-4 h-full">
       {loading ? (
-        <h1>Loading...</h1>
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 h-full max-w-7xl mx-auto">
           <div className="col-span-4 w-full my-auto mx-auto">
             {/* Status ogłoszenia */}
-            <div className="rounded shadow shadow-md mb-4">
+            <div className="rounded shadow-md mb-4">
               <div
                 className={`rounded text-center p-2 bg-red-600 text-normal text-white ${
                   data.status === 1 ? "" : "hidden"

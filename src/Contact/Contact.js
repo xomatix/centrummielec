@@ -3,7 +3,7 @@ import { baseApiUrl } from "../Variables";
 
 function Contact() {
   return (
-    <div className="container mx-auto my-10 p-5">
+    <div className="container mx-auto my-5 p-5">
       <h2 className="text-3xl font-semibold text-center text-success my-5">
         Kontakt
       </h2>
@@ -24,10 +24,6 @@ function Contact() {
           </p>
 
           <p className="mb-4">
-            {/* Adres: Ul. Szeroka 1<br />
-            39-300 Mielec
-            <br />
-            <br /> */}
             Monika Piotrowska:{" "}
             <a className="text-green-600" href="tel:602575735">
               +48 602 57 57 35
@@ -66,6 +62,14 @@ function Contact() {
               9:00 - 13:00 (sobota)
             </p>
           </div>
+
+          <p className="mb-4 text-lg">
+            Jesteśmy z wami od 1999 r.
+            <br />
+            Spełniamy marzenia.
+            <br />
+            Dołącz do grona naszych zadowolonych klientów.
+          </p>
         </div>
 
         <div className="lg:w-1/2 my-auto">

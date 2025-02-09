@@ -1,22 +1,23 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Home from "./Home/Home"; // Import your existing components
-import Offers from "./Offers/Offers"; // Import the Offers component
-import Offer from "./Offer/Offer";
-import Login from "./Login/Login";
-import EditOffer from "./Offer/EditOffer";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect, Suspense } from "react";
 import { RefreshToken } from "./Login/Login";
-import { useEffect } from "react";
-import { baseApiUrl } from "./Variables";
 import Footer from "./Footer/Footer";
-import Contact from "./Contact/Contact";
 import NavbarComponent from "./Navbar/NavbarComponent";
+import { lazy } from "react";
+
+// Dynamically import components using React.lazy
+const Home = lazy(() => import("./Home/Home"));
+const Offers = lazy(() => import("./Offers/Offers"));
+const Offer = lazy(() => import("./Offer/Offer"));
+const Login = lazy(() => import("./Login/Login"));
+const EditOffer = lazy(() => import("./Offer/EditOffer"));
+const Contact = lazy(() => import("./Contact/Contact"));
 
 function App() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       RefreshToken();
-      //console.log("Refresh token fuinction start");
     }, 120 * 1000);
     return () => clearInterval(intervalId);
   }, []);
@@ -24,32 +25,35 @@ function App() {
   return (
     <Router>
       <div>
-        {/* Navigation bar 2 */}
+        {/* Navigation bar */}
         <NavbarComponent />
 
-        {/* Route configuration */}
-        <Routes>
-          <Route path="/" exact element={<Home />} /> {/* Home page */}
-          <Route path="/login/" element={<Login />} /> {/* Offers page */}
-          <Route path="/kontakt" element={<Contact />} /> {/* Offers page */}
-          {localStorage.getItem("token") !== null && (
-            <Route path="/dodaj/" element={<EditOffer />} />
-          )}
-          <Route path="/:category/wynajem" element={<Offers rent={true} />} />
-          <Route path="/:category/mielec" element={<Offers mielec={true} />} />
-          <Route
-            path="/:category/poza-mielcem"
-            element={<Offers mielec={false} />}
-          />
-          <Route path="/:category/" element={<Offers />} />
-          <Route path="/:category/:id" element={<Offer />} />{" "}
-          {/* Offers page */}
-          <Route path="/:category/:id/edytuj" element={<EditOffer />} />{" "}
-          {/* Offers page */}
-        </Routes>
+        {/* Route configuration with Suspense */}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/login/" element={<Login />} />
+            <Route path="/kontakt" element={<Contact />} />
+            {localStorage.getItem("token") !== null && (
+              <Route path="/dodaj/" element={<EditOffer />} />
+            )}
+            <Route path="/:category/wynajem" element={<Offers rent={true} />} />
+            <Route
+              path="/:category/mielec"
+              element={<Offers mielec={true} />}
+            />
+            <Route
+              path="/:category/poza-mielcem"
+              element={<Offers mielec={false} />}
+            />
+            <Route path="/:category/" element={<Offers />} />
+            <Route path="/:category/:id" element={<Offer />} />
+            <Route path="/:category/:id/edytuj" element={<EditOffer />} />
+          </Routes>
+        </Suspense>
       </div>
 
-      {/* footer */}
+      {/* Footer */}
       <Footer />
     </Router>
   );

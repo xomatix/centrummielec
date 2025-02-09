@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { baseApiUrl } from "../Variables";
 import { Link } from "react-router-dom";
 import ContactBar from "../Contact/ContactBar";
@@ -13,7 +13,7 @@ function NavbarComponent() {
 
   return (
     <nav className="bg-white border-gray-200 ">
-      <div className="max-w-screen-2xl inline-block 2xl:mt-5 flex flex-wrap items-center justify-between align-center mx-auto p-4 shadow-lg 2xl:rounded">
+      <div className="max-w-screen-2xl 2xl:mt-5 flex flex-wrap items-center justify-between align-center mx-auto p-4 shadow-lg 2xl:rounded">
         <Link to="/">
           <div className="flex items-center space-x-3 left-[50%]">
             <img
@@ -54,22 +54,22 @@ function NavbarComponent() {
         >
           <ul className="flex flex-col text-lg font-semibold p-4 lg:p-0 mt-4 rounded-lg bg-white w-100 lg:flex-row lg:mt-0 lg:border-0 lg:bg-white">
             <li>
-              <a
-                href="/mieszkania"
+              <Link
+                to="/mieszkania"
                 className={`${navbarLinkBaseClass} border-t-[#77C8A6] `}
                 aria-current="page"
               >
                 MIESZKANIA
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/domy"
+              <Link
+                to="/domy"
                 className={`${navbarLinkBaseClass} border-t-[#BAB7B8] `}
                 aria-current="page"
               >
                 DOMY
-              </a>
+              </Link>
             </li>
             <li className="lg:relative">
               <button
@@ -106,20 +106,20 @@ function NavbarComponent() {
                   aria-labelledby="dropdownLargeButton"
                 >
                   <li>
-                    <a
-                      href="/dzialki/mielec"
+                    <Link
+                      to="/dzialki/mielec"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       DZIAŁKI w Mielcu
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/dzialki/poza-mielcem"
+                    <Link
+                      to="/dzialki/poza-mielcem"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       DZIAŁKI poza Mielcem
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -160,52 +160,52 @@ function NavbarComponent() {
                   aria-labelledby="dropdownLargeButton"
                 >
                   <li>
-                    <a
-                      href="/lokale"
+                    <Link
+                      to="/lokale"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       LOKALE na sprzedaż
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/lokale/wynajem"
+                    <Link
+                      to="/lokale/wynajem"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       LOKALE na wynajem
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
             </li>
             <li>
-              <a
-                href="/mieszkania/wynajem"
+              <Link
+                to="/mieszkania/wynajem"
                 className={`${navbarLinkBaseClass} border-t-[#6D6E6E]`}
               >
                 WYNAJEM MIESZKAŃ
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/kontakt"
+              <Link
+                to="/kontakt"
                 className={`${navbarLinkBaseClass} border-t-[#E2E76F]`}
               >
                 KONTAKT
-              </a>
+              </Link>
             </li>
 
             {localStorage.getItem("token") !== null && (
               <>
                 <li>
-                  <a href="/dodaj" className={`${navbarLinkBaseClass}`}>
+                  <Link to="/dodaj" className={`${navbarLinkBaseClass}`}>
                     Dodaj oferte
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/login" className={`${navbarLinkBaseClass}`}>
+                  <Link to="/login" className={`${navbarLinkBaseClass}`}>
                     Logowanie
-                  </a>
+                  </Link>
                 </li>
               </>
             )}
