@@ -71,10 +71,15 @@ function NavbarComponent() {
                 DOMY
               </Link>
             </li>
-            <li className="lg:relative">
+            <li
+            onMouseEnter={() => setShowMenuDzialki(true)}
+            onMouseLeave={() => setShowMenuDzialki(false)}
+            className="lg:relative">
               <button
                 id="dropdownNavbarLink"
-                onClick={() => setShowMenuDzialki(!showMenuDzialki)}
+                
+                
+              
                 className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#D6E037]`}
               >
                 DZIAŁKI{" "}
@@ -125,10 +130,13 @@ function NavbarComponent() {
               </div>
             </li>
 
-            <li className="lg:relative">
+            <li
+            onMouseEnter={() => setShowMenuLokale(true)}
+            onMouseLeave={() => setShowMenuLokale(false)}
+            className="lg:relative">
               <button
                 id="dropdownNavbarLink"
-                onClick={() => setShowMenuLokale(!showMenuLokale)}
+                
                 className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#CBE7CF]`}
               >
                 LOKALE{" "}
