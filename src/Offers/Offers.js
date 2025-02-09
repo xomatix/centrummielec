@@ -115,7 +115,7 @@ function Offers({ rent, mielec }) {
         <div className="max-w-7xl mx-auto" style={{ minHeight: "75vh" }}>
           <h2 className="ml-4 text-2xl font-semibold mb-4">
             {category.charAt(0).toUpperCase()}
-            {category.slice(1)} na{" "}
+            {category.slice(1)} {category !== "zrealizowane" ? "na " : ""}
             {category === "zrealizowane"
               ? "oferty"
               : rent !== undefined && rent === true
@@ -128,10 +128,14 @@ function Offers({ rent, mielec }) {
                 <div>
                   <Link
                     key={index + 999}
-                    to={`/${category}/${item.id}-${item.title
-                      .replace("/", "")
-                      .split(" ")
-                      .join("-")}`}
+                    to={
+                      category === "zrealizowane"
+                        ? `/zrealizowane`
+                        : `/${category}/${item.id}-${item.title
+                            .replace("/", "")
+                            .split(" ")
+                            .join("-")}`
+                    }
                     className="grid grid-cols-1 sm:grid-cols-7 bg-white rounded-lg hover:bg-gray-50 transition ease-in-out duration-300 w-full
                  shadow shadow-gray-300 hover:shadow-xl "
                   >

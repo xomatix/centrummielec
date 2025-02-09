@@ -20,7 +20,7 @@ function Footer() {
             width={50}
             height={50}
           />
-          <h2 className="text-center p-2 text-success text-lg font-semibold hidden md:block">
+          <h2 className="text-center p-2 mb-[50px] text-success text-lg font-semibold hidden md:block">
             DOŁĄCZ DO GRONA NASZYCH KLIENTÓW!
           </h2>
         </div>

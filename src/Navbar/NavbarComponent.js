@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { baseApiUrl } from "../Variables";
 import { Link } from "react-router-dom";
+import ContactBar from "../Contact/ContactBar";
 
 function NavbarComponent() {
   const [showMenu, setShowMenu] = useState(false);
@@ -12,7 +13,7 @@ function NavbarComponent() {
 
   return (
     <nav className="bg-white border-gray-200 ">
-      <div className="max-w-screen-2xl inline-block flex flex-wrap items-center justify-between align-center mx-auto p-4">
+      <div className="max-w-screen-2xl inline-block 2xl:mt-5 flex flex-wrap items-center justify-between align-center mx-auto p-4 shadow-lg 2xl:rounded">
         <Link to="/">
           <div className="flex items-center space-x-3 left-[50%]">
             <img
@@ -210,6 +211,10 @@ function NavbarComponent() {
             )}
           </ul>
         </div>
+      </div>
+
+      <div className="max-w-screen-2xl mx-auto">
+        <ContactBar />
       </div>
     </nav>
   );

@@ -10,13 +10,6 @@ function BriefContact() {
       <div className="lg:flex lg:justify-between">
         {/* Contact Information Section */}
         <div className="w-full p-5">
-          <p className="text-md mb-4">
-            Jeżeli chcesz się dowiedzieć o danej ofercie więcej, a nie masz
-            czasu by przyjść do naszego biura, zadzwoń lub skontaktuj się
-            poprzez pocztę elektroniczną. Chętnie udzielimy Ci więcej
-            informacji, prześlemy dodatkowe zdjęcia.
-          </p>
-
           {/* Contact Details */}
           <p className="mb-2">
             Monika Piotrowska:{" "}

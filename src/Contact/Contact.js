@@ -12,31 +12,22 @@ function Contact() {
       <div className="lg:flex lg:justify-between">
         <div className="lg:w-1/2 p-5">
           <p className="text-lg mb-4">
-            Jeżeli chcesz się dowiedzieć o danej ofercie więcej, a nie masz
-            czasu by przyjść do naszego biura, zadzwoń lub skontaktuj się
-            poprzez pocztę elektroniczną. Chętnie udzielimy Ci więcej
-            informacji, prześlemy dodatkowe zdjęcia (e-mail).
+            Centrum-Nieruchomości
+            <br />
+            Biuro pośrednictwa w obrocie nieruchomościami
+            <br />
+            kupno | sprzedaż | najem
+            <br />
+            domy | działki | mieszkania | lokale
+            <br />
+            ul. Szeroka 1, 39-300 Mielec, woj. podkarpackie, Polska
           </p>
 
-          <div className="mb-4">
-            <p className="font-semibold">Godziny otwarcia biura:</p>
-            <p>9:00 - 15:00 (poniedziałek - piątek)</p>
-          </div>
-
-          <div className="mb-4">
-            <p className="font-semibold">Praca w terenie:</p>
-            <p>
-              9:00 - 19:00 (poniedziałek - piątek)
-              <br />
-              9:00 - 13:00 (sobota)
-            </p>
-          </div>
-
           <p className="mb-4">
-            Adres: Ul. Szeroka 1<br />
+            {/* Adres: Ul. Szeroka 1<br />
             39-300 Mielec
             <br />
-            <br />
+            <br /> */}
             Monika Piotrowska:{" "}
             <a className="text-green-600" href="tel:602575735">
               +48 602 57 57 35
@@ -61,6 +52,20 @@ function Contact() {
               www.centrummielec.pl
             </a>
           </p>
+
+          <div className="mb-4">
+            <p className="font-semibold">Godziny otwarcia biura:</p>
+            <p>9:00 - 15:00 (poniedziałek - piątek)</p>
+          </div>
+
+          <div className="mb-4">
+            <p className="font-semibold">Praca w terenie:</p>
+            <p>
+              9:00 - 19:00 (poniedziałek - piątek)
+              <br />
+              9:00 - 13:00 (sobota)
+            </p>
+          </div>
         </div>
 
         <div className="lg:w-1/2 my-auto">

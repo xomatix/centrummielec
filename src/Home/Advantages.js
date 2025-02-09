@@ -3,7 +3,7 @@ import React from "react";
 function Advantages() {
   return (
     <div className="container mx-auto py-10">
-      <h2 className="text-center text-2xl font-semibold mb-6">
+      <h2 className="text-center text-3xl font-semibold mb-6">
         Nasze <span className="text-green-600">Zalety</span>
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 justify-items-center items-center mx-auto px-4 max-w-4xl">

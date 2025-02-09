@@ -28,6 +28,7 @@ const SlideShow = ({ photosUrlsBase }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photosUrls]);
 
   useEffect(() => {
@@ -80,7 +81,7 @@ const SlideShow = ({ photosUrlsBase }) => {
         <img
           src={photosUrls[mainPhotoIndex]}
           className="w-full h-[60vh] object-cover cursor-pointer rounded shadow shadow-lg"
-          alt={`Image ${mainPhotoIndex + 1}`}
+          alt={`Zdjecie ${mainPhotoIndex + 1}`}
           onClick={toggleFullscreen}
         />
         <button
