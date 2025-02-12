@@ -62,7 +62,7 @@ function Recom() {
             scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
           }
         }
-      }, 3300); // Adjust the interval as needed
+      }, 5000); // Adjust the interval as needed
     };
 
     const stopScrolling = () => {
