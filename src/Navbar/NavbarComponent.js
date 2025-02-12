@@ -9,7 +9,7 @@ function NavbarComponent() {
   const [showMenuLokale, setShowMenuLokale] = useState(false);
 
   const navbarLinkBaseClass =
-    "block py-2 px-2 mx-1 bg-white hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-green-600 xl:px-4 lg:border-t-4 lg:border-0";
+    "block py-2  px-2 mx-1 bg-white hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-green-600 xl:px-4 lg:border-t-4 lg:border-0";
 
   return (
     <nav className="bg-white border-gray-200 ">
