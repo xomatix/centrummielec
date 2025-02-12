@@ -15,7 +15,7 @@ function Home() {
       <Advantages />
       <div className="text-center mx-auto my-5">
         <Link to="/zrealizowane">
-          <button className="px-6 py-3 text-lg font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
+          <button className="px-6 py-3 text-lg font-semibold text-white bg-green-600 rounded-lg hover:bg-[#77c8a7] focus:outline-none focus:ring-4 focus:ring-green-300">
             Sprawdź zrealizowane przez nas oferty
           </button>
         </Link>

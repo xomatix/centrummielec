@@ -7,7 +7,7 @@ function Advantages() {
         Nasze <span className="text-green-600">Zalety</span>
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 justify-items-center items-center mx-auto px-4 max-w-4xl">
-        <div className="w-full sm:h-[400px] md:h-[350px] p-6 bg-white border border-green-600 border-2 rounded-lg shadow">
+        <div className="w-full sm:h-[400px] md:h-[350px] p-6 bg-white border border-[#77c8a7] border-2 rounded-lg shadow">
           <h5 className="mb-4 text-2xl font-bold tracking-tight text-green-600">
             PROFESJONALIZM DOŚWIADCZENIE ZAUFANIE
           </h5>
@@ -24,7 +24,7 @@ function Advantages() {
           </p>
         </div>
 
-        <div className="w-full sm:h-[400px] md:h-[350px] p-6 bg-white border border-green-600 border-2 rounded-lg shadow">
+        <div className="w-full sm:h-[400px] md:h-[350px] p-6 bg-white border border-[#77c8a7] border-2 rounded-lg shadow">
           <h5 className="mb-4 text-2xl font-bold tracking-tight text-green-600">
             PROWADZIMY WYCENĘ NIERUCHOMOŚCI POD SPRZEDAŻ
           </h5>
@@ -39,7 +39,7 @@ function Advantages() {
           </p>
         </div>
 
-        <div className="w-full sm:h-[150px] md:h-[125px] p-6 bg-white border border-green-600 border-2 rounded-lg shadow">
+        <div className="w-full sm:h-[150px] md:h-[125px] p-6 bg-white border border-[#77c8a7] border-2 rounded-lg shadow">
           <p className="text-gray-700">
             KREDYTY HIPOTECZNE.{" "}
             <b className="text-green-600">
@@ -49,7 +49,7 @@ function Advantages() {
           </p>
         </div>
 
-        <div className="w-full sm:h-[150px] md:h-[125px] p-6 bg-white border border-green-600 border-2 rounded-lg shadow">
+        <div className="w-full sm:h-[150px] md:h-[125px] p-6 bg-white border border-[#77c8a7] border-2 rounded-lg shadow">
           <p className="text-gray-700">
             Chcesz szybko sprzedać{" "}
             <b className="text-green-600">DOM DZIAŁKĘ MIESZKANIE LOKAL</b>?
