@@ -2,7 +2,7 @@ import React from "react";
 
 function BriefContact() {
   return (
-    <div className="p-3 bg-white rounded-lg shadow-md ">
+    <div className="p-3 bg-[#cbe7d049] rounded-lg shadow-md ">
       <div className="mb-4 font-bold text-3xl text-center">Kontakt</div>
       <hr className="my-2 border-green-600" />
 

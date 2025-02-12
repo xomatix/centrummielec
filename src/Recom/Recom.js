@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { baseApiUrl } from "../Variables";
 import { Link } from "react-router-dom";
+import "./Recom.css"; // Import the custom CSS file
 
 function Recom() {
   const [data, setData] = useState([]);
+  const scrollRef = useRef(null);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     async function getRecommendedData() {
@@ -43,10 +46,43 @@ function Recom() {
             element.category = category;
           });
           const shuffled = data.sort(() => 0.5 - Math.random());
-          setData(shuffled.slice(0, 6));
+          setData(shuffled.slice(0, 12)); // Increase the number of items fetched
         });
     }
     getRecommendedData();
+  }, []);
+
+  useEffect(() => {
+    const startScrolling = () => {
+      intervalRef.current = setInterval(() => {
+        if (scrollRef.current) {
+          if (scrollRef.current.scrollLeft + scrollRef.current.clientWidth >= scrollRef.current.scrollWidth) {
+            scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+          } else {
+            scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+          }
+        }
+      }, 5000); // Adjust the interval as needed
+    };
+
+    const stopScrolling = () => {
+      clearInterval(intervalRef.current);
+    };
+
+    startScrolling();
+
+    if (scrollRef.current) {
+      scrollRef.current.addEventListener("mouseenter", stopScrolling);
+      scrollRef.current.addEventListener("mouseleave", startScrolling);
+    }
+
+    return () => {
+      clearInterval(intervalRef.current);
+      if (scrollRef.current) {
+        scrollRef.current.removeEventListener("mouseenter", stopScrolling);
+        scrollRef.current.removeEventListener("mouseleave", startScrolling);
+      }
+    };
   }, []);
 
   return (
@@ -55,16 +91,21 @@ function Recom() {
         Polecane <span className="text-green-600">oferty</span>
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center items-center mx-auto px-4 max-w-7xl">
+      <div
+        className="flex overflow-x-auto space-x-7 px-4 max-w-7xl mx-auto custom-scrollbar pb-2" // Add custom-scrollbar class
+        ref={scrollRef}
+        style={{ scrollSnapType: "x mandatory" }}
+      >
         {data.map((item, index) => (
           <Link
             key={index}
             to={`/${item.category}/${item.id}-${item.title
               .split(" ")
               .join("-")}`}
-            className="relative group"
+            className="relative group flex-shrink-0 w-[400px] h-[320px]" // Increase the width to make them larger
+            style={{ scrollSnapAlign: "start" }}
           >
-            <div className="w-full h-[300px] overflow-hidden rounded-lg shadow-md">
+            <div className="w-full h-full overflow-hidden rounded-lg shadow-md"> {/* Increase the height to maintain 4:3 aspect ratio */}
               <img
                 src={item.firstPhoto}
                 alt={`Zdjęcie polecanej oferty ${index}`}
@@ -75,7 +116,7 @@ function Recom() {
 
             <div className="absolute bottom-0 left-0 p-4 text-white">
               <div className="font-bold text-lg">
-                {item.price} {item.price_unit}
+                {item.title.length > 35 ? item.title.substring(0, 32) + "..." : item.title}
               </div>
               <div className="text-sm">{item.location_text}</div>
             </div>

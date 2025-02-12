@@ -53,7 +53,7 @@ function NavbarComponent() {
           id="navbar-dropdown"
         >
           <ul className="flex flex-col text-lg font-semibold p-4 lg:p-0 mt-4 rounded-lg bg-white w-100 lg:flex-row lg:mt-0 lg:border-0 lg:bg-white">
-            <li>
+            <li onClick= {() => setShowMenu(false)}>
               <Link
                 to="/mieszkania"
                 className={`${navbarLinkBaseClass} border-t-[#77C8A6] `}
@@ -62,7 +62,7 @@ function NavbarComponent() {
                 MIESZKANIA
               </Link>
             </li>
-            <li>
+            <li onClick= {() => setShowMenu(false)}>
               <Link
                 to="/domy"
                 className={`${navbarLinkBaseClass} border-t-[#BAB7B8] `}
@@ -71,10 +71,15 @@ function NavbarComponent() {
                 DOMY
               </Link>
             </li>
-            <li className="lg:relative">
+            <li
+            onMouseEnter={() => setShowMenuDzialki(true)}
+            onMouseLeave={() => setShowMenuDzialki(false)}
+            className="lg:relative">
               <button
                 id="dropdownNavbarLink"
-                onClick={() => setShowMenuDzialki(!showMenuDzialki)}
+                
+                
+              
                 className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#D6E037]`}
               >
                 DZIAŁKI{" "}
@@ -101,7 +106,7 @@ function NavbarComponent() {
                   showMenuDzialki ? "" : "hidden"
                 }`}
               >
-                <ul
+                <ul onClick= {() => setShowMenu(false)}
                   className="py-2 mx-auto text-sm text-gray-700"
                   aria-labelledby="dropdownLargeButton"
                 >
@@ -125,10 +130,13 @@ function NavbarComponent() {
               </div>
             </li>
 
-            <li className="lg:relative">
+            <li
+            onMouseEnter={() => setShowMenuLokale(true)}
+            onMouseLeave={() => setShowMenuLokale(false)}
+            className="lg:relative">
               <button
                 id="dropdownNavbarLink"
-                onClick={() => setShowMenuLokale(!showMenuLokale)}
+                
                 className={`flex items-center justify-between  ${navbarLinkBaseClass} border-t-[#CBE7CF]`}
               >
                 LOKALE{" "}
@@ -155,7 +163,7 @@ function NavbarComponent() {
                   showMenuLokale ? "" : "hidden"
                 }`}
               >
-                <ul
+                <ul onClick= {() => setShowMenu(false)}
                   className="py-2 mx-auto text-sm text-gray-700"
                   aria-labelledby="dropdownLargeButton"
                 >
@@ -167,7 +175,7 @@ function NavbarComponent() {
                       LOKALE na sprzedaż
                     </Link>
                   </li>
-                  <li>
+                  <li >
                     <Link
                       to="/lokale/wynajem"
                       className="block px-4 py-2 hover:bg-gray-100"
@@ -178,15 +186,17 @@ function NavbarComponent() {
                 </ul>
               </div>
             </li>
-            <li>
-              <Link
+            <li onClick= {() => setShowMenu(false)}>
+              <Link  
                 to="/mieszkania/wynajem"
                 className={`${navbarLinkBaseClass} border-t-[#6D6E6E]`}
               >
                 WYNAJEM MIESZKAŃ
               </Link>
             </li>
-            <li>
+            <li onClick= {() => setShowMenu(false)}
+             
+            >
               <Link
                 to="/kontakt"
                 className={`${navbarLinkBaseClass} border-t-[#E2E76F]`}
