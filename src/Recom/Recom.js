@@ -75,7 +75,7 @@ function Recom() {
 
             <div className="absolute bottom-0 left-0 p-4 text-white">
               <div className="font-bold text-lg">
-                {item.price} {item.price_unit}
+                {item.title.length > 35 ? item.title.substring(0, 32) + "..." : item.title}
               </div>
               <div className="text-sm">{item.location_text}</div>
             </div>
