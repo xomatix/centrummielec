@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { baseApiUrl } from "../Variables";
 import SlideShow from "./SlideShow";
 import BriefContact from "../Contact/BriefContact";
+import PrintButton from "../PrintOffer/PrintButton";
 
 async function deletePost(e, id, category) {
   e.preventDefault();
@@ -191,9 +192,15 @@ function Offer() {
               <SlideShow photosUrlsBase={data.photos.split(",")} />
               <div className="p-3">
                 <div className="text-2xl font-bold">{data.title}</div>
-                <a href="#map" className="text-green-600 text-lg font-semibold">
-                  {data.location_text}
-                </a>
+                <div className="flex flex-row justify-between">
+                  <a
+                    href="#map"
+                    className="text-green-600 text-lg font-semibold"
+                  >
+                    {data.location_text}
+                  </a>
+                  <PrintButton offer={data} />
+                </div>
               </div>
             </div>
 

@@ -177,3 +177,38 @@
 .parent-div .ql-indent-3 {
     margin-left: 60px;
 }
+
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-section,
+  .print-section * {
+    display: block;
+    visibility: visible; 
+  }
+
+  .print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  body {
+    font-size: 12pt;
+  }
+
+  h2 {
+    color: blue !important;
+  }
+}
+
+@media not print {
+  .print-section,
+  .print-section * {
+    display:none; 
+  }
+}
