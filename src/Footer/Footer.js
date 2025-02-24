@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div>
+    <div className="print:hidden">
       <div
         className="flex justify-center items-center bg-repeat-x bg-bottom"
         style={{

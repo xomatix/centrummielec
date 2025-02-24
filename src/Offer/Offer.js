@@ -188,19 +188,24 @@ function Offer() {
             </div>
 
             {/* Tytul */}
-            <div className=" bg-white rounded shadow shadow-md">
-              <SlideShow photosUrlsBase={data.photos.split(",")} />
-              <div className="p-3">
-                <div className="text-2xl font-bold">{data.title}</div>
-                <div className="flex flex-row justify-between">
-                  <a
-                    href="#map"
-                    className="text-green-600 text-lg font-semibold"
-                  >
-                    {data.location_text}
-                  </a>
-                  <PrintButton offer={data} />
+            <div className="relative">
+              <div className=" bg-white rounded shadow shadow-md print:hidden">
+                {/* print:hidden */}
+                <SlideShow photosUrlsBase={data.photos.split(",")} />
+                <div className="p-3">
+                  <div className="text-2xl font-bold ">{data.title}</div>
+                  <div className="flex flex-row justify-between">
+                    <a
+                      href="#map"
+                      className="text-green-600 text-lg font-semibold "
+                    >
+                      {data.location_text}
+                    </a>
+                  </div>
                 </div>
+              </div>
+              <div className="absolute right-2 bottom-2 print:left-0 print:top-0">
+                <PrintButton offer={data} />
               </div>
             </div>
 
@@ -235,7 +240,7 @@ function Offer() {
             )}
 
             {/* Prawa czesc */}
-            <div className="grid grid-items-1 gap-2 mt-2">
+            <div className="grid grid-items-1 gap-2 mt-2 print:hidden">
               {/* Cena */}
               <div className="p-3 bg-white rounded shadow shadow-md">
                 <div className="mb-2 font-bold text-lg">Koszt</div>
@@ -250,7 +255,7 @@ function Offer() {
                 )}
               </div>
 
-              <div className="p-3 bg-white rounded shadow shadow-md">
+              <div className="p-3 bg-white rounded shadow shadow-md ">
                 <div className="mb-2 font-semibold text-lg">
                   Szczegóły ogłoszenia
                 </div>
@@ -280,7 +285,7 @@ function Offer() {
                 </div>
               </div>
 
-              <div className="p-3 bg-white rounded shadow shadow-md">
+              <div className="p-3 bg-white rounded shadow shadow-md ">
                 <div className="text-2xl font-bold">Opis:</div>
                 <div
                   className="parent-div"
@@ -319,7 +324,7 @@ function Offer() {
             </div>
           </div>
 
-          <div className="col-span-2 ">
+          <div className="col-span-2 print:hidden">
             <BriefContact />
           </div>
         </div>

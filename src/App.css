@@ -181,9 +181,9 @@
 
 
 @media print {
-  body * {
+  /* body * {
     visibility: hidden;
-  }
+  } */
 
   .print-section,
   .print-section * {
@@ -195,14 +195,6 @@
     position: absolute;
     left: 0;
     top: 0;
-  }
-
-  body {
-    font-size: 12pt;
-  }
-
-  h2 {
-    color: blue !important;
   }
 }
 

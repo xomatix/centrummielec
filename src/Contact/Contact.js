@@ -1,5 +1,5 @@
 import React from "react";
-import { baseApiUrl } from "../Variables";
+import { baseApiUrl, baseContact } from "../Variables";
 
 function Contact() {
   return (
@@ -20,7 +20,7 @@ function Contact() {
             <br />
             domy | działki | mieszkania | lokale
             <br />
-            ul. Szeroka 1, 39-300 Mielec, woj. podkarpackie, Polska
+            {baseContact.location}, woj. podkarpackie, Polska
           </p>
 
           <p className="mb-4">
@@ -35,8 +35,8 @@ function Contact() {
             </a>
             <br />
             e-mail:{" "}
-            <a className="text-green-600" href="mailto:biuro@centrummielec.pl">
-              biuro@centrummielec.pl
+            <a className="text-green-600" href={"mailto:" + baseContact.email}>
+              {baseContact.email}
             </a>
             <br />
             <a

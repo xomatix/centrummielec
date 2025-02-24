@@ -40,7 +40,7 @@ const SlideShow = ({ photosUrlsBase }) => {
   }, [photosUrlsBase]);
 
   return (
-    <div className="relative">
+    <div className="relative print:hidden">
       {/* Fullscreen View */}
       {isFullscreen && (
         <div className="fixed inset-0 bg-black bg-opacity-85 z-50 flex items-center justify-center">
@@ -80,7 +80,7 @@ const SlideShow = ({ photosUrlsBase }) => {
       <div className="relative">
         <img
           src={photosUrls[mainPhotoIndex]}
-          className="w-full h-[60vh] object-cover cursor-pointer rounded shadow shadow-lg"
+          className="w-full h-[60vh] object-cover cursor-pointer rounded shadow-lg"
           alt={`Zdjecie ${mainPhotoIndex + 1}`}
           onClick={toggleFullscreen}
         />
@@ -117,11 +117,9 @@ const SlideShow = ({ photosUrlsBase }) => {
               src={url}
               className={`w-20 min-w-[20vw] md:min-w-20 h-20 object-cover cursor-pointer rounded shadow 
                   ${
-                    mainPhotoIndex == index
-                      ? "border border-gray-800 border-4"
-                      : ""
+                    mainPhotoIndex === index ? " border-gray-800 border-4" : ""
                   }`}
-              alt={`Thumbnail ${index + 1}`}
+              alt={`Podgląd zdjęcia ${index + 1}`}
               onClick={() => setMainPhotoIndex(index)}
             />
           </div>
