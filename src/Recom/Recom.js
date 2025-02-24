@@ -65,7 +65,7 @@ function Recom() {
             scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
           }
         }
-      }, 3000);
+      }, 4000);
     };
 
     const stopScrolling = () => {
@@ -90,15 +90,14 @@ function Recom() {
   }, []);
 
   return (
-    <div className="py-6 bg-gray-100 w-full">
+    <div className="py-6 bg-gray-100 w-full md:px-0 px-2">
       <h2 className="text-center text-2xl font-semibold mb-6">
         Polecane <span className="text-green-600">oferty</span>
       </h2>
 
       <div
-        className="flex overflow-x-auto space-x-7 px-4 max-w-7xl mx-auto custom-scrollbar pb-2" // Add custom-scrollbar class
+        className="flex overflow-x-auto space-x-7 px-4 max-w-7xl mx-auto custom-scrollbar pb-2 snap-x snap-mandatory"
         ref={scrollRef}
-        style={{ scrollSnapType: "x mandatory" }}
       >
         {data.map((item, index) => (
           <Link
@@ -106,8 +105,8 @@ function Recom() {
             to={`/${item.category}/${item.id}-${item.title
               .split(" ")
               .join("-")}`}
-            className="relative group flex-shrink-0 w-[400px] h-[320px]" // Increase the width to make them larger
-            style={{ scrollSnapAlign: "start" }}
+            className="relative group flex-shrink-0 md:w-[400px] md:h-[320px] w-[100%] h-[300px]" // Increase the width to make them larger
+            style={{ scrollSnapAlign: "center" }}
           >
             <div className="w-full h-full overflow-hidden rounded-lg shadow-md">
               {" "}

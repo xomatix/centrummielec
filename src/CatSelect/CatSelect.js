@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { baseColors } from "../Variables";
 
 function CatSelect() {
   const [selectedCategory, setSelectedCategory] = useState("Mieszkania");
@@ -79,7 +80,7 @@ function CatSelect() {
             </form>
 
             <button
-              className="bg-green-600 text-white font-semibold py-2 px-6 w-full rounded-lg hover:bg-green-700 transition-all"
+              className={`bg-[${baseColors.primary}] text-white font-semibold py-2 px-6 w-full rounded-lg hover:bg-[#3c9470] transition-all`}
               onClick={handleButtonPressed}
             >
               Szukaj
