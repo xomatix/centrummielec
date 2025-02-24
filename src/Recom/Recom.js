@@ -56,13 +56,16 @@ function Recom() {
     const startScrolling = () => {
       intervalRef.current = setInterval(() => {
         if (scrollRef.current) {
-          if (scrollRef.current.scrollLeft + scrollRef.current.clientWidth >= scrollRef.current.scrollWidth) {
+          if (
+            scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
+            scrollRef.current.scrollWidth
+          ) {
             scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
           } else {
             scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
           }
         }
-      }, 5000); // Adjust the interval as needed
+      }, 3000);
     };
 
     const stopScrolling = () => {
@@ -80,6 +83,7 @@ function Recom() {
       clearInterval(intervalRef.current);
       if (scrollRef.current) {
         scrollRef.current.removeEventListener("mouseenter", stopScrolling);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         scrollRef.current.removeEventListener("mouseleave", startScrolling);
       }
     };
@@ -105,7 +109,9 @@ function Recom() {
             className="relative group flex-shrink-0 w-[400px] h-[320px]" // Increase the width to make them larger
             style={{ scrollSnapAlign: "start" }}
           >
-            <div className="w-full h-full overflow-hidden rounded-lg shadow-md"> {/* Increase the height to maintain 4:3 aspect ratio */}
+            <div className="w-full h-full overflow-hidden rounded-lg shadow-md">
+              {" "}
+              {/* Increase the height to maintain 4:3 aspect ratio */}
               <img
                 src={item.firstPhoto}
                 alt={`Zdjęcie polecanej oferty ${index}`}
@@ -116,7 +122,9 @@ function Recom() {
 
             <div className="absolute bottom-0 left-0 p-4 text-white">
               <div className="font-bold text-lg">
-                {item.title.length > 35 ? item.title.substring(0, 32) + "..." : item.title}
+                {item.title.length > 35
+                  ? item.title.substring(0, 32) + "..."
+                  : item.title}
               </div>
               <div className="text-sm">{item.location_text}</div>
             </div>

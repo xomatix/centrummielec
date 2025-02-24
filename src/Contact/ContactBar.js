@@ -1,5 +1,5 @@
 import React from "react";
-import { baseApiUrl } from "../Variables";
+import { baseApiUrl, baseContact } from "../Variables";
 
 function ContactBar() {
   const contactStyle = "p-5 w-100 flex gap-2 mx-auto";
@@ -12,7 +12,7 @@ function ContactBar() {
     <div className="w-100 mx-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center justify-between">
       <div className={contactStyle}>
         <img src={AddressIcon} alt="Addres ico" className={imageStyle} />
-        <p>Ul. Szeroka 1 39-300 Mielec</p>
+        <p>{baseContact.location}</p>
       </div>
       <div className={contactStyle}>
         <img src={ClockIcon} alt="Clock ico" className={imageStyle} />
@@ -20,8 +20,8 @@ function ContactBar() {
       </div>
       <div className={contactStyle}>
         <img src={AddressIcon} alt="Addres ico" className={imageStyle} />
-        <a className="text-green-600" href="mailto:biuro@centrummielec.pl">
-          biuro@centrummielec.pl
+        <a className="text-green-600" href={"mailto:" + baseContact.email}>
+          {baseContact.email}
         </a>
       </div>
       <div className={contactStyle}>

@@ -1,8 +1,9 @@
 import React from "react";
+import { baseContact } from "../Variables";
 
 function BriefContact() {
   return (
-    <div className="p-3 bg-[#cbe7d049] rounded-lg shadow-md ">
+    <div className="p-3 mt-4 bg-white rounded-lg shadow-md">
       <div className="mb-4 font-bold text-3xl text-center">Kontakt</div>
       <hr className="my-2 border-green-600" />
 
@@ -24,7 +25,7 @@ function BriefContact() {
             e-mail:{" "}
             <a
               className="text-green-600 font-bold"
-              href="mailto:biuro@centrummielec.pl"
+              href={"mailto:" + baseContact.email}
             >
               biuro@centrummielec.pl
             </a>
@@ -42,7 +43,7 @@ function BriefContact() {
               <br />
               9:00 - 13:00 (sobota)
             </p>
-            Adres: Ul. Szeroka 1 39-300 Mielec
+            Adres: {baseContact.location}
           </div>
         </div>
       </div>
