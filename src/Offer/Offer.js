@@ -189,7 +189,7 @@ function Offer() {
 
             {/* Tytul */}
             <div className="relative">
-              <div className=" bg-white rounded shadow shadow-md print:hidden">
+              <div className=" bg-white rounded shadow-md print:hidden">
                 {/* print:hidden */}
                 <SlideShow photosUrlsBase={data.photos.split(",")} />
                 <div className="p-3">
@@ -324,7 +324,7 @@ function Offer() {
             </div>
           </div>
 
-          <div className="col-span-2 print:hidden">
+          <div className="col-span-2 mt-4 print:hidden">
             <BriefContact />
           </div>
         </div>

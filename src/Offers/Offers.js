@@ -234,7 +234,7 @@ function Offers({ rent, mielec }) {
                   </div>
                 ))}
               </div>
-              <div className="col-span-1 lg:col-span-2">
+              <div className="col-span-1 w-full lg:col-span-2">
                 <BriefContact />
               </div>
             </div>

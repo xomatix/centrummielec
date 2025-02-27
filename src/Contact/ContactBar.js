@@ -2,14 +2,14 @@ import React from "react";
 import { baseApiUrl, baseContact } from "../Variables";
 
 function ContactBar() {
-  const contactStyle = "p-5 w-100 flex gap-2 mx-auto";
+  const contactStyle = "p-1 lg:p-5 w-100 flex gap-2 mx-auto";
   const imageStyle = "object-contain";
   const ClockIcon = `${baseApiUrl}/static/ic_czas.png`;
   const PhoneIcon = `${baseApiUrl}/static/ic_telefon.png`;
   const AddressIcon = `${baseApiUrl}/static/ic_adres.png`;
 
   return (
-    <div className="w-100 mx-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center justify-between">
+    <div className="w-100 mx-auto mt-3 lg:mt-0 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center justify-between">
       <div className={contactStyle}>
         <img src={AddressIcon} alt="Addres ico" className={imageStyle} />
         <p>{baseContact.location}</p>

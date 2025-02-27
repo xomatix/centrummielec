@@ -80,7 +80,7 @@ function CatSelect() {
             </form>
 
             <button
-              className={`bg-[${baseColors.primary}] text-white font-semibold py-2 px-6 w-full rounded-lg hover:bg-[#3c9470] transition-all`}
+              className={`bg-[#4ab68a] text-white font-semibold py-2 px-6 w-full rounded-lg hover:bg-[#3c9470] transition-all`}
               onClick={handleButtonPressed}
             >
               Szukaj
