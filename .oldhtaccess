@@ -457,8 +457,14 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^nowa(.*)$ application/public/files/offer/nowa/front/index.html [PT,L]
 
+
+
+# Language redirects
+RewriteCond %{HTTP_HOST} ^[a-zA-Z]{2}\.(.+)$
+RewriteRule ^(.*)$ lang.php/$1 [PT,L]
+
 # Default redirect for application
-RewriteRule ^(.*)$ application/public/files/offer/nowa/front/index.html [PT,L]
+RewriteRule ^(.*)$ index.php/$1 [PT,L]
 
 # ----------------------------------------------------------------------
 # Disable directory listing
