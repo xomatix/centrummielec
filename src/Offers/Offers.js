@@ -187,7 +187,7 @@ function Offers({ rent, mielec }) {
                         </div>
                       </div>
                       <div className="flex flex-col col-span-5 justify-start p-4 ">
-                        <h5 className="text-xl md:text-2xl font-bold text-pretty tracking-tight text-gray-900 mb-5">
+                        <h5 className="text-xl md:text-2xl font-bold text-pretty tracking-tight text-gray-900 mb-5 h-16">
                           {item.title}
                         </h5>
                         <p className="font-normal text-gray-700">
@@ -202,15 +202,25 @@ function Offers({ rent, mielec }) {
                                 {item.price_text} {item.price_unit}
                               </b>
                               <br />
-                              Cena za {item.size_unit}:{" "}
-                              {Math.floor(item.price / item.size)}{" "}
-                              {item.price_unit}/{item.size_unit}
-                              <br />
+                              {!rent && (
+                                <div>
+                                  Cena za {item.size_unit}:{" "}
+                                  {Math.floor(item.price / item.size)}{" "}
+                                  {item.price_unit}/{item.size_unit}
+                                  <br />
+                                </div>
+                              )}
                             </div>
                           )}
                           {categoryId === 0 && "Piętro" in item.parameters && (
                             <>
                               Piętro: {item.parameters["Piętro"]}
+                              <br />
+                            </>
+                          )}
+                          {rent && "Kaucja" in item.parameters && (
+                            <>
+                              Kaucja: {item.parameters["Kaucja"]}
                               <br />
                             </>
                           )}
