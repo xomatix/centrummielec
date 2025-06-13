@@ -176,6 +176,18 @@ function EditOffer() {
   const [parametersList, setParametersList] = useState({});
   const [isUploaded, setIsUploaded] = useState(true);
   const [isLoaded, setIsLoaded] = useState(true);
+  const categoryDefinitions = {
+    mieszkania: 0,
+    domy: 1,
+    dzialki: 2,
+    "dzialki poza mielcem": 4,
+    lokale: 3,
+    0: "Mieszkania",
+    1: "Domy",
+    2: "Dzialki",
+    4: "Dzialki poza Mielcem",
+    3: "Lokale",
+  };
 
   useEffect(() => {
     const dataFromApi = async () => {
@@ -188,7 +200,7 @@ function EditOffer() {
         price_unit: reqData.price_unit,
         size: reqData.size,
         size_unit: reqData.size_unit,
-        category: category.charAt(0).toUpperCase() + category.slice(1),
+        category: categoryDefinitions[reqData.category],
         is_recommended: reqData.is_recommended ? "Tak" : "Nie",
         status:
           reqData.status === 0
@@ -260,6 +272,9 @@ function EditOffer() {
         break;
       case "dzialki":
         categoryNum = 2;
+        break;
+      case "dzialki poza mielcem":
+        categoryNum = 4;
         break;
       case "lokale":
         categoryNum = 3;
@@ -836,6 +851,7 @@ function EditOffer() {
             <option>Mieszkania</option>
             <option>Domy</option>
             <option>Dzialki</option>
+            <option>Dzialki poza Mielcem</option>
             <option>Lokale</option>
           </select>
         </div>

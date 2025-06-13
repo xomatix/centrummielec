@@ -16,7 +16,8 @@ function Offers({ rent, mielec }) {
       categoryId = 1;
       break;
     case "dzialki":
-      categoryId = 2;
+      if (mielec === true) categoryId = 2;
+      else categoryId = 4;
       break;
     case "lokale":
       categoryId = 3;
@@ -49,20 +50,6 @@ function Offers({ rent, mielec }) {
         }
 
         let json = await response.json();
-
-        if (mielec === true) {
-          json = json.filter(
-            (element) =>
-              element.location_text !== null &&
-              element.location_text.toLowerCase().includes("mielec")
-          );
-        } else if (mielec === false) {
-          json = json.filter(
-            (element) =>
-              element.location_text === null ||
-              !element.location_text.toLowerCase().includes("mielec")
-          );
-        }
 
         json.forEach((element) => {
           if (element.photos === "" || element.photos === null) return;
